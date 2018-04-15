@@ -1,0 +1,63 @@
+//
+   Created by Administrator on 2015/10/29.
+doctype html
+html(lang="en")
+   head
+      meta(charset="utf-8")
+      title Edit Question
+
+      link(rel="stylesheet", href="../styles/bootstrap.min.css")
+      link(rel="stylesheet", href="../app_3th_js/jquery-ui-1.11.4/jquery-ui.css")
+      script(type="text/javascript", src="../app_3th_js/jquery/jquery.min.js")
+      script(type="text/javascript", src="../app_ui_question/underscore.js")
+      script(type="text/javascript", src="../app_ui_question/backbone.js")
+      script(type="text/javascript", src="../app_ui_question/backbone.localStorage.js")
+      script(type="text/javascript", src="../app_3th_js/jquery-ui-1.11.4/jquery-ui.js")
+      script(type="text/javascript", src="../app_ui_question/bootstrap.min.js")
+      style.
+          #tooltip{
+              width:83px;
+              height:23px;
+              line-height:23px;
+              background-color:#CCCCCC;
+          }
+          #tooltip a {
+              color: #333333;
+              display: block;
+              font-size: 13px;
+              font-weight: bold;
+              text-indent: 10px;
+          }
+      script(type="text/javascript").
+          function getDateStrUUID(){
+              var date = new Date();
+              var month = (date.getMonth()+1)<10?'0'+(date.getMonth()+1):(date.getMonth()+1);
+              var day = date.getDate()<10 ? ('0'+date.getDate()) : date.getDate();
+              var hour = date.getHours()<10 ? ('0'+date.getHours()) : date.getHours();
+              var minutes = date.getMinutes()<10 ? ('0'+date.getMinutes()) : date.getMinutes();
+              var seconds = date.getSeconds()<10 ? ('0'+date.getSeconds()) : date.getSeconds();
+              var millSeconds = date.getMilliseconds();
+              if(millSeconds<100){
+                  if(millSeconds<10){
+                      millSeconds = '00'+millSeconds;
+                  }else {
+                      millSeconds = '0' + millSeconds;
+                  }
+              }
+
+              var dateStr = '' + date.getFullYear() +  month +  day +hour +  minutes +  seconds + millSeconds;
+
+              return dateStr;
+          }
+
+   body
+      .container(style="padding: 50px 10px 10px;")
+      script(type="text/javascript", src="../app_ui_question/exam/examModels.js")
+      script(type="text/javascript", src="../app_ui_question/exam/examItems.js")
+      script(type="text/javascript", src="../app_ui_question/exam/choice_question_examPanel.js")
+      script(type="text/javascript", src="../app_ui_question/exam/likert_examPanel.js")
+      script(type="text/javascript", src="../app_ui_question/exam/open_question_examPanel.js")
+      script(type="text/javascript", src="../app_ui_question/exam/slider_examPanel.js")
+      script(type="text/javascript", src="../app_ui_question/exam/fill_in_blank_examPanel.js")
+      script(type="text/javascript", src="../app_ui_question/exam/inline_choice_examPanel.js")
+      script(type="text/javascript", src="../app_ui_question/exam/editExam.js")

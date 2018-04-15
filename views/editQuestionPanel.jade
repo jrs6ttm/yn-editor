@@ -1,0 +1,224 @@
+﻿doctype html
+html
+   head(lang="en")
+      meta(charset="UTF-8")
+      title Questions
+      script(type="text/javascript", src="app_3th_js/jquery/jquery.min.js")
+      link(rel="stylesheet", href="styles/bootstrap.min.css")
+      script(type="text/javascript", src="app_3th_js/bootstrap/bootstrap.min.js")
+   body(style='backgroud-color:rgb(38.38,38)')
+      .panel.panel-default
+         .panel-heading(align='center')
+            h2.panel-title 编辑问题
+         .panel-body
+            label(for='name') 问题描述:
+            textarea#questionDesId.form-control(rows='3', placeholder='请输入问题描述')
+            .radio
+               label
+                  input(type='radio', name='questionType', checked='checked', value='0')
+                  |  多选题
+               label
+                  input(type='radio', name='questionType', value='1')
+                  |  单选题
+               span#rightTypeSpan(style='margin-left: 45%;')
+                  label 答对标准:
+                  label
+                     input(type='radio', name='rightType', checked='checked', value='0')
+                     |  全部选中
+                  label
+                     input(type='radio', name='rightType', value='1')
+                     |  部分选中
+            div(style='margin-top: 8px;')
+               label
+                  input(type='checkbox', name='eChoiceAllItem')
+                  | 选择
+               button.btn.btn-default(type='button', style='margin-left: 75%;margin-right: 1%;', onclick='addItem();') 增加选项
+               button.btn.btn-default(type='button', onclick='deleteItem();') 删除选项
+         table.table.mySelectionTable
+            tr
+               td
+                  .form-group
+                     label.col-sm-1.control-label
+                        input(type='checkbox', name='selectionItem')
+                     .col-sm-9
+                        input#firstname.form-control.mySelectionContents(type='text', placeholder='请输入选项')
+                     label.col-sm-2.control-label
+                        input(type='checkbox', name='rightAnswerItem')
+                        | 设为答案
+         .panel-footer(align='right')
+            button#childSubBut.btn.btn-default(type='button', style='margin-right: 5%;') 确 定
+      script(type='text/javascript').
+         var item = {
+            itemName: "question",
+            itemType: "checkbox",
+            itemDescription: "",
+            rightAnswer:[],
+            choiceCollection:[],
+            myAnswer: {}
+         };
+         $(function(){
+            $('input[name="eChoiceAllItem"]').click(function(){
+               var status = $(this)[0].checked;
+               var selectedItem = $('input[name="selectionItem"]');
+               if(status){
+                  $.each(selectedItem, function(index, element){
+                     $(element)[0].checked = true;
+                  });
+               }else{
+                  $.each(selectedItem, function(index, element){
+                     $(element)[0].checked = false;
+                  });
+               }
+            });
+
+            $('input[name="questionType"]').click(function(){
+               $(".mySelectionTable").children().remove();
+               if($(this)[0].value == '0')//多选
+                  $('#rightTypeSpan').css('display','inline');
+               else
+                  $('#rightTypeSpan').css('display','none');
+               addItem();
+            });
+         });
+         function addItem(){
+            var questionType = $('input[name="questionType"]:checked');
+            var html = '';
+
+            if(questionType.val() == '0'){//多选题
+               $('#rightTypeSpan').css('display','inline');
+
+               html = '<tr>'+
+                           '<td>'+
+                              '<div class="form-group">'+
+                                 '<label class="col-sm-1 control-label"><input type="checkbox" name="selectionItem"></label>'+
+                                 '<div class="col-sm-9">'+
+                                    '<input type="text" class="form-control mySelectionContents" id="firstname" '+
+                                    'placeholder="请输入选项" />'+
+                                 '</div>'+
+                                 '<label  class="col-sm-2 control-label"><input type="checkbox" name="rightAnswerItem">设为答案</label>'+
+                              '</div>'+
+                           '</td>'+
+                        '</tr>';
+            }else{
+               $('#rightTypeSpan').css('display', 'none');
+               html = '<tr>'+
+                        '<td>'+
+                           '<div class="form-group">'+
+                              '<label  class="col-sm-1 control-label"><input type="checkbox" name="selectionItem"></label>'+
+                              '<div class="col-sm-9">'+
+                                 '<input type="text" class="form-control mySelectionContents" id="firstname" '+
+                                 'placeholder="请输入选项" />'+
+                              '</div>'+
+                              '<label  class="col-sm-2 control-label"><input type="radio" name="rightAnswerItem">设为答案</label>'+
+                           '</div>'+
+                        '</td>'+
+                      '</tr>';
+            }
+
+            $(".mySelectionTable").append(html);
+         }
+         function deleteItem(type){
+            var selectedItem;
+            if(type && type == 'clear'){
+               selectedItem = $('input[name="selectionItem"]');
+            }else{
+               selectedItem = $('input[name="selectionItem"]:checked');
+               if(!selectedItem.length){
+                  alert("请选择要删除的选项!");
+               }
+            }
+            $.each(selectedItem, function(index, element){
+               var aaa = $(element).parent().parent().parent().parent();
+               $(aaa).remove();
+            });
+
+            if($(".mySelectionTable tr").length == 0)
+               $('input[name="eChoiceAllItem"]')[0].checked = false;
+
+         }
+         function saveItem(){
+            var tArea = $("#questionDesId").val();
+            if(!tArea || tArea.trim() == ""){
+               //alert("请输入问题描述!");
+               $("#questionDesId").focus();
+               return false;
+            }
+            item.itemDescription = tArea;
+            item.choiceCollection = [];
+            $(".mySelectionContents").each(function(index, element){
+               var choice = {};
+               choice.choiceId = index + 1;
+               var currElementValue = $(element).val();
+               if(!currElementValue || currElementValue.trim() == ""){
+                  //alert("您有未输入的选项描述!");
+                  item.choiceCollection = [];
+                  $(element).focus();
+                  return false;  //return false;跳出所有循环；相当于 javascript 中的 break 效果。return true;跳出当前循环，进入下一个循环；相当于 javascript 中的 continue 效果
+               }
+               choice.choiceDescription = currElementValue;
+               item.choiceCollection.push(choice);
+            });
+            if(!item.choiceCollection.length){
+               return false;
+            }
+            $('input[name="rightAnswerItem"]').each(function(index){
+               if($(this)[0].checked){
+                  item.rightAnswer.push((index + 1).toString());
+                  item.choiceCollection[index].isAnswer = true;
+               }
+            });
+            if(!item.rightAnswer.length){
+               alert("请勾选正确的选项!");
+               return false;
+            }
+            console.log(item);
+            var questionType = $('input[name="questionType"]:checked');
+            if(questionType.val() == '0'){//多选
+               item.itemType = 'checkbox';
+               var rightType = $('input[name="rightType"]:checked').val();
+               if(rightType == '0')//全部选中
+                  item.rightType = 'all';
+               else
+                  item.rightType = 'part';
+            }
+            else
+               item.itemType = 'radio';
+            //console.log(JSON.stringify(item));
+            $.post("/saveQuestionForm", {item: JSON.stringify(item)}, function(result){
+                       if(result && result.success){
+                          if(result.success){
+                             alert('编辑成功!');
+                             $("#linkId", window.parent.document).val(result.data);
+                             console.log(result);
+                             clearItem('clear');
+                             addItem();
+                          }else{
+                             alert('编辑失败!');
+                          }
+
+                       }
+                    }
+            );
+
+         }
+
+         function clearItem(type){
+            $("#questionDesId").val("");
+
+            deleteItem(type);
+
+            $('input[name="questionType"]').each(function(index){
+               if(index == 0)
+                  $(this)[0].checked = 'checked';
+               else
+                  $(this)[0].checked = false;
+            });
+
+            item = {
+               itemType: "checkbox",
+               itemDescription: "",
+               rightAnswer:[],
+               choiceCollection:[]
+            };
+         }
+

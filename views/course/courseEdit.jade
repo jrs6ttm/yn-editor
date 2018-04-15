@@ -1,0 +1,97 @@
+doctype html
+html(lang='zh_CN')
+    head
+        meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+        meta(name='viewport', content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no')
+        title 课程编辑
+        link(href='./styles/bootstrap.min.css', rel='stylesheet')
+        link(href='./app_3th_js/edu/bootstrap.css', rel='stylesheet')
+        link(href='./app_3th_js/edu/main.css', rel='stylesheet')
+        link(charset='utf-8', rel='stylesheet', href='./app_3th_js/edu/jquery-plugin-select2.css')
+        script(type='text/javascript', src='app_3th_js/jquery/jquery.min.js')
+        script(type='text/javascript', src='app_3th_js/bootstrap/bootstrap.min.js')
+        script(type='text/javascript').
+            function escape2Html(str) {
+                str = str.replace(/\\/g, '\\\\');
+                var arrEntities = {'lt': '<', 'gt': '>', 'nbsp': ' ', 'amp': '&', 'quot': '"'};
+                return (str.replace(/&(lt|gt|nbsp|amp|quot);/ig, function (all, t) {
+                    return arrEntities[t];
+                }));
+            }
+            var Course = {
+                id: '#{CourseId}',
+                title: '#{CourseName}',
+                briefDes: '#{BriefDes}',
+                detailDes: 0/*escape2Html("#{DetailDes}")*/,
+                icon: escape2Html('#{FileIcon}'),
+                categoryId: '#{CategoryId}',
+                teacherId: '#{TeacherId}',
+                teacherName: '#{TeacherName}',
+                type: '#{CourseType}',
+                isPublished: #{IsPublished}
+            };
+            var MATERIAL_URL = '#{MATERIAL_URL}' + '/fileManager';
+            var LOGIN_HOST = '#{loginHost}';
+            var showContent = function (type, headText) {
+                $.get('/show-content-' + type, function (content) {
+                    $('#panel-body').html(content);
+                    $('#panel-heading').text(headText);
+                })
+            };
+            $('#myModal').on('shown.bs.modal', function () {
+                $('#myInput').focus()
+            });
+    body
+        include ../head
+        .es-wrap(style="padding-top: 154px;")
+            #content-container.container
+                // 标题栏
+                .es-section.course-manage-header.clearfix
+                    div
+                        img.picture
+                    h1.title
+                        span#banner-couseTitle.link-dark #{CourseName}
+                        span#publishStatusSpan.unpublish-warning.text-warning
+                    .teachers
+                        span
+                            | 教师：#{TeacherName}
+                        | &nbsp;&nbsp;
+                        span#course-type-span
+                            | 课程类型：
+                    .toolbar.hidden-xs
+                        .btn-group
+                            #publishCourseBtn.btn.btn-default.btn-sm 发布
+                        .btn-group
+                            a#previewCourseBtn.btn.btn-default.btn-sm 预览
+                                //span.caret
+                .row
+                    // 左侧导航
+                    .col-md-3
+                        .sidenav.locked
+                            ul.list-group
+                                li.list-group-heading 课程信息
+                                li.list-group-item.active(data-text='基本信息', data-label='basicInfo')
+                                    a
+                                        span
+                                        | 基本信息
+                                li.list-group-item(data-text='详细信息', data-label='detailDescpt')
+                                    a
+                                        span
+                                        | 详细信息
+                                li.list-group-item(data-text='课程封面', data-label='icon')
+                                    a
+                                        span
+                                        | 课程封面
+                                li.list-group-item(data-text='课程单元管理', data-label='subCourses')
+                                    a
+                                        span
+                                        | 课程单元管理
+                    // 右侧工作区
+                    .col-md-9
+                        .panel.panel-default.panel-col
+                            #panel-heading.panel-heading 基本信息
+                            #panel-body.panel-body
+                                //include subCourses
+        #modal.modal.in(tabindex="-1" role="dialog" aria-labelledby="myModalLabel")
+        include ../footer
+        script(type='text/javascript', src='course_js/courseEdit.js')

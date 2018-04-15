@@ -1,0 +1,48 @@
+﻿{
+   "appenders" :
+   [{
+        "type": "console",
+		"layout":"colored",		
+        "category": "console"    
+    },
+    {
+        "type": "dateFile",		
+        "filename": "./_static_content/LogFolder/",
+        "pattern": "LogFile_yyyyMMddhh.txt",
+		"absolute": true,  
+		"alwaysIncludePattern": true,
+        "category": "dateFileLog"
+    },
+    {
+        "type": "file",
+		"layout":"basic",
+        "filename": "./_static_content/LogFolder/log_A.txt",
+        "pattern": "yyyyMMdd",
+        "maxLogSize": 20480,
+        "backups":3,
+        "category":"dateFileLog_A"
+    }],
+    "replaceConsole": true,
+    "levels":
+     {
+        "dateFileLog":"TRACE",
+        "dateFileLog_A":"TRACE",
+        "console": "TRACE"
+     },
+	 "ExtendCfg":
+	 {
+		"ExtendCfgCommItem":{},
+		"ExtendCfgItemMap":
+		{
+			"console":{"IsEnable":true},
+			"dateFileLog":{"IsEnable":true},
+			"dateFileLog_A":{"IsEnable":true}
+		},
+
+		"ExtendCfgCommItemForCustomLog":{},
+		"ExtendCfgItemMapForCustomLog":
+		{
+			"MyCustomLog20170114":{"IsEnable":true,"levels":"TRACE"}
+		}
+	 }
+}

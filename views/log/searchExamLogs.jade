@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        title students_exams_logs
+        script(type="text/javascript", src="../app_3th_js/jquery/jquery.min.js")
+        script(type="text/javascript", src="../app_ui_question/underscore.js")
+        script(type="text/javascript", src="../app_ui_question/backbone.js")
+        script(type="text/javascript", src="../app_ui_question/backbone.localStorage.js")
+        link(rel="stylesheet", href="../styles/bootstrap.min.css")
+        script(type="text/javascript", src="../app_ui_question/bootstrap.min.js")
+
+    body
+        script(type="text/javascript").
+            var localHost = '#{localHost}';
+        script(type="text/javascript", src="../app_ui_question/log/examLogModel.js")
+        script(type="text/javascript", src="../app_ui_question/log/pageView.js")
+        script(type="text/javascript", src="../app_ui_question/log/searchExamLogs.js")

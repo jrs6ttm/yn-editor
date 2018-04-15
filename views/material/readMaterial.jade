@@ -1,0 +1,65 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title Read Material
+    script(type="text/javascript", src="../app_3th_js/jquery/jquery.min.js", charset="utf-8")
+    script(type="text/javascript", src="../app_ui_question/underscore.js", charset="utf-8")
+    script(type="text/javascript", src="../app_ui_question/backbone.js", charset="utf-8")
+    script(type="text/javascript", src="../app_ui_question/backbone.localStorage.js", charset="utf-8")
+    link(rel="stylesheet", href="../styles/bootstrap.min.css")
+    script(type="text/javascript", src="../app_3th_js/bootstrap/bootstrap.min.js", charset="utf-8")
+    script(type="text/javascript", src="../app_3th_js/tinymce/tinymce.min.js", charset="utf-8")
+    script(type="text/javascript", src="../app_3th_js/ckplayer/ckplayer.js", charset="utf-8")
+    script(type="text/javascript", src="../app_3th_js/ckplayer/js/offlights.js", charset="utf-8")
+  body
+    .container(style="margin-top: 50px;margin-left: 20%;")
+
+      #keyWords-searchInput
+      .row
+        .col-lg-9
+          #doc-contents
+        .col-lg-3
+          #doc-publisher
+          #related-documents
+          #recommend-documents
+      .row
+        .col-lg-9
+          #doc-comments
+            #add-comment
+
+    script(type="text/javascript").
+      function ckmarqueeadv(){
+        var ads = '<a href="http://player.xuezuowang.com/#/website-pages/home" target="_blank"><font color="#FFFFFF" size="12">'+
+                '易能教育 我们的理念：团结  合作  奋进  开拓  在云端</font></a>';
+        return ads;
+      }
+
+        //跳过广告
+      function ckadjump(){
+          //alert('这里演示了点击跳过广告按钮后的执行的动作，如果注册会员可以做成直接跳过的效果。');
+          alert('不管你是不是会员，都不能跳过广告，因为码农还没实现该控制！');
+      }
+        //开关灯
+        var box = new LightBox();
+      function closelights(){//关灯
+        $('input[name="keyWords"]').css('display', 'none');
+        box.Show();
+        $('#video-player').css('position', 'relative');
+        $('#video-player').css('z-index', '2');
+        CKobject._K_('video-player').style.width='900px';
+        CKobject._K_('video-player').style.height='550px';
+        CKobject.getObjectById('ckplayer_a1').width=1000;
+        CKobject.getObjectById('ckplayer_a1').height=550;
+      }
+      function openlights(){//开灯
+        $('input[name="keyWords"]').css('display', 'block');
+        box.Close();
+        CKobject._K_('video-player').style.width='100%';
+        CKobject._K_('video-player').style.height='450px';
+        CKobject.getObjectById('ckplayer_a1').width=848;
+        CKobject.getObjectById('ckplayer_a1').height=450;
+      }
+    script(type="text/javascript", src="../app_ui_question/material/materialModel.js")
+    script(type="text/javascript", src="../app_ui_question/material/pageView.js")
+    script(type="text/javascript", src="../app_ui_question/material/readMaterial.js")

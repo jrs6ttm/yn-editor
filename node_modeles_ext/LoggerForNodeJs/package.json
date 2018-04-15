@@ -1,0 +1,13 @@
+{
+  "name": "logger",
+  "version": "1.0.0",
+  "description": "log contain log4js by zhanghongbo",
+  "main": "index.js",
+  "scripts": {
+  },
+  "author": "zhb",
+  "dependencies": {
+    "express": "4.14.0",
+    "log4js": "1.1.0"
+  }
+}

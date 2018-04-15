@@ -1,0 +1,158 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+
+var debug = require('debug')('myapp:server');
+var http = require('http');
+var socket = require('./socket.js');
+var child_process = require('child_process');
+var dataResource = require('./app_db/dataSource.js');
+var externalConfig = require('./config.json');
+
+if (externalConfig.runMode === 'dev'){
+    var session = require('express-session');
+    const MongoStore = require('connect-mongo')(session);
+} else {
+    //redis160623
+    var redis =	require("redis");
+    var session = require('./node_modeles_ext/express-session');
+    var redisStore = require('./node_modeles_ext/connect-redis')(session);
+    var client = redis.createClient(
+        (externalConfig.redisClientHost[externalConfig.runMode].split(":"))[1],
+        (externalConfig.redisClientHost[externalConfig.runMode].split(":"))[0]);
+}
+dataResource.connectDb(externalConfig.dbUrl, function (ecgeditorDb) {
+    var app = require('./config');
+    app.externalConfig = externalConfig;
+    var sessionDeploy = {};
+    if(externalConfig.runMode==='dev'){
+        sessionDeploy={
+            resave: false,
+            saveUninitialized: false,
+            secret : 'fens.me',
+            cookie: { maxAge: 5400000, domain:app.externalConfig.cookieDomain[app.externalConfig.runMode]},
+            //cookie: { maxAge: 5400000},               //session ? ????????3??
+            store: new MongoStore({ url: app.externalConfig.sessionDBUrl[app.externalConfig.runMode] })
+        }
+    } else {
+        sessionDeploy = {
+            //redis160623
+            secret: 'you_guess',
+            store: new redisStore({
+                //prefix: 'PHPREDIS_SESSION:',
+                client: client,
+                ttl :  26000}),
+            saveUninitialized: false,
+            resave: false
+        }
+    }
+    app.use(session(sessionDeploy));
+
+    app = require('./routes/root')(app);
+
+    /**
+     * Get port from environment and store in Express.
+     */
+    var port = normalizePort(process.env.PORT || app.externalConfig.port[app.externalConfig.runMode]);
+    app.set('port', port);
+
+    /**
+     * Create HTTP server.
+     */
+
+    var server = http.createServer(app);
+
+    /**
+     * Listen on provided port, on all network interfaces.
+     */
+
+    server.listen(port, function () {
+        console.log('Sever listening on port ' + port +'. \nApplication startup success.');
+    });
+    server.on('error', onError);
+    server.on('listening', onListening);
+    //start engine, abandoned
+    if(app.externalConfig.isStartProcessEngine){
+        child = child_process.spawn('node', ['../processEngine/app']);
+        child.stdout.setEncoding('utf8');
+        child.stdout.on('data', function (data) {
+            console.log(data);
+        });
+    }
+    /*var c_process = child_process.fork('../processEngine/app');
+     c_process.on('message', function (m) {
+     console.log('PARENT got message:', m);
+     });
+     c_process.send({hello: 'world'});*/
+    /**
+     * start socketIo
+     */
+    socket.startSocketIo(server);
+
+
+
+
+    /**
+     * Normalize a port into a number, string, or false.
+     */
+
+    function normalizePort(val) {
+        var port = parseInt(val, 10);
+
+        if (isNaN(port)) {
+            // named pipe
+            return val;
+        }
+
+        if (port >= 0) {
+            // port number
+            return port;
+        }
+
+        return false;
+    }
+
+    /**
+     * Event listener for HTTP server "error" event.
+     */
+
+    function onError(error) {
+        if (error.syscall !== 'listen') {
+            throw error;
+        }
+
+        var bind = typeof port === 'string'
+            ? 'Pipe ' + port
+            : 'Port ' + port;
+
+        // handle specific listen errors with friendly messages
+        switch (error.code) {
+            case 'EACCES':
+                console.error(bind + ' requires elevated privileges');
+                process.exit(1);
+                break;
+            case 'EADDRINUSE':
+                console.error(bind + ' is already in use');
+                process.exit(1);
+                break;
+            default:
+                throw error;
+        }
+    }
+
+    /**
+     * Event listener for HTTP server "listening" event.
+     */
+
+    function onListening() {
+        var addr = server.address();
+        var bind = typeof addr === 'string'
+            ? 'pipe ' + addr
+            : 'port ' + addr.port;
+        console.log('Listening on ' + bind);
+    }
+});
+

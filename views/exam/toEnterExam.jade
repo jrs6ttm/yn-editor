@@ -1,0 +1,23 @@
+//
+   Created by Administrator on 2016/2/17.
+doctype html
+html(lang="en")
+   head
+      meta(charset="utf-8")
+      title myExam
+      script(type="text/javascript", src="../app_3th_js/jquery/jquery.min.js")
+      script(type="text/javascript").
+         $(document).ready(function(){
+            var examId = $('#examId').val();
+            if(examId) {
+               window.location.href = '/exam/startToExam?examId=' + examId + '&examType=test';
+            }
+         });
+   body
+      if(examId)
+         p(style="font-size:18px;color:#F00;") 进入考试中...
+         input#examId(type="hidden", value="#{examId}")
+      if(errorMsg)
+         p(style="font-size:18px;color:#F00;") #{errorMsg}
+      if(!examId && !errorMsg)
+         p(style="font-size:18px;color:#F00;") 抱歉，获取不到信息，出现未知错误！

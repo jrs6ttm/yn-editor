@@ -1,0 +1,64 @@
+doctype html
+html(lang='zh_CN')
+    // <![endif]
+    head
+        meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+        meta(name='viewport', content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no')
+        title 课程创建页面
+        link(href='./styles/bootstrap.min.css', rel='stylesheet')
+        //link(rel='stylesheet', media='screen', href='http://192.168.1.21:8090/assets/css/common.css?7.5.12')
+        //link(rel='stylesheet', media='screen', href='http://192.168.1.21:8090/assets/css/font-awesome.min.css?7.5.12')
+        //link(rel='stylesheet', media='screen', href='http://192.168.1.21:8090/assets/v2/css/es-icon.css?7.5.12')
+        link(href='./app_3th_js/edu/main.css', rel='stylesheet')
+        script(type='text/javascript', src='app_3th_js/jquery/jquery.min.js')
+    body
+        include ../head
+        .es-wrap(style="padding-top: 154px;")
+            #content-container.container
+                .row
+                    .panel.panel-default.panel-page.panel-create-course
+                        .panel-heading
+                            h2 创建课程
+                        form#course-create-form.form-horizontal(method='post', novalidate='novalidate', data-widget-cid='widget-1')
+                            .course-piece
+                                | 选择类型
+                            .row
+                                .col-md-3
+                                    .course-select.active(data-type='task')
+                                        i.es-icon.es-icon-putongkecheng
+                                        .course-type 任务引领式课程
+                                        .course-intro 支持视频、图文、PPT等各种形式，支持作业、笔记等多个学习工具的课程
+                                .col-md-3
+                                    .course-select(data-type='project')
+                                        i.es-icon.es-icon-zhibokecheng
+                                        .course-type 项目式课程
+                                        .course-intro 以直播为教学形式的，支持多个学习工具的课程
+                                .col-md-3
+                                    .course-select(data-type='situation')
+                                        i.es-icon.es-icon-lubogongkaike
+                                        .course-type 学习领域式课程
+                                        .course-intro 免费、无门槛观看的视频课程，主要用于营销推广
+                                .col-md-3
+                                    .course-select(data-type='subject')
+                                        i.es-icon.es-icon-zhibokecheng2
+                                        .course-type 学科体系课程
+                                        .course-intro 免费、无门槛参与的直播课程，主要用于营销推广
+                            .course-title.row
+                                .col-md-2.controls-label.text-lg
+                                    .course-piece.title
+                                        | 课程标题
+                                .col-md-10.controls
+                                    input#course_title.form-control(type='text', name='title', required='required', data-widget-cid='widget-2', data-explain='')
+                                    #help-block-course-title.help-block(style='display:none;')
+                            .text-center
+                                span.mrm
+                                    //a.text-muted(href='', target='_blank') 如何创建课程？
+                                div#course-create-btn.btn.btn-fat.btn-primary 创建
+                                a.btn.btn-fat.btn-link(href='/') 取消
+                            input(type='hidden', name='type', value='normal')
+                            input(type='hidden', name='_csrf_token', value='0UTQ6km-LWJNy2iBWA-r-a4ZYPe_SEPMx23-c60XoNY')
+        #login-modal.modal(data-url='/app.php/login/ajax')
+        #modal.modal
+        #attachment-modal.modal
+        include ../footer
+        script(type='text/javascript', src='course_js/courseCreate.js')

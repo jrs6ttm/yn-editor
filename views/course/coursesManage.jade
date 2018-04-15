@@ -1,0 +1,96 @@
+doctype html
+html(lang='zh_CN')
+    head
+        meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+        meta(name='renderer', content='webkit')
+        meta(name='viewport', content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no')
+        title 课程管理
+        link(href='./app_3th_js/edu/bootstrap.css', rel='stylesheet')
+        link(href='./app_3th_js/edu/main.css', rel='stylesheet')
+        script(type='text/javascript', src='app_3th_js/jquery/jquery.min.js')
+        script(type='text/javascript', src='app_3th_js/bootstrap/bootstrap.min.js')
+        //link(rel='stylesheet', media='screen', href='http://192.168.1.21:8090/assets/css/common.css?7.5.12')
+        //link(rel='stylesheet', media='screen', href='http://192.168.1.21:8090/assets/css/font-awesome.min.css?7.5.12')
+        //link(rel='stylesheet', media='screen', href='http://192.168.1.21:8090/assets/v2/css/es-icon.css?7.5.12')
+        script(type='text/javascript').
+            var MATERIAL_URL = '#{MATERIAL_URL}' + '/fileManager';
+            var LOGIN_HOST = '#{loginHost}';
+    body
+        include ../head
+        .es-wrap(style="padding-top: 154px;")
+            #content-container.container
+                .row.row-3-9.my-layout
+                    .col-md-3
+                        .sidenav
+                            ul.list-group
+                                li.list-group-heading 课程类型
+                                li.list-group-item(data-type='task')
+                                    a 任务引领式课程
+                                li.list-group-item(data-type='project')
+                                    a 项目式课程
+                                li.list-group-item(data-type='situation')
+                                    a 学习领域式课程
+                                li.list-group-item(data-type='subject')
+                                    a 学科体系式课程
+                    .col-md-9
+                        .panel.panel-default.panel-col.lesson-manage-panel
+                            .panel-heading
+                                span.pull-right
+                                    //input#inputEmail3(style='width: 60%;margin: 0 2px;')
+                                    a#create-course.btn.btn-info.btn-sm(href='courseCreate')
+                                        span.glyphicon.glyphicon-plus
+                                        | 创建课程
+                                | 课程列表
+                            .panel-body
+                                //ul.nav.nav-tabs
+                                //    li.active
+                                //        a(href='todo') 一些条件
+                                //br
+                                table#course-table.table.table-striped.table-hover(style='word-break:break-all;')
+                                    thead
+                                        tr
+                                            th.sortable(width='45%' style='cursor:pointer') 名称&nbsp;
+                                                span.sortSignSpan#sort-sign-name ↓↑
+                                            th.sortable(style='cursor:pointer') 创建时间&nbsp;
+                                                span.sortSignSpan#sort-sign-createTime ↓↑
+                                            th.sortable(style='cursor:pointer') 修改时间&nbsp;
+                                                span.sortSignSpan#sort-sign-lastModify ↓↑
+                                            th(width='10%') 状态
+                                            th(width='15%') 操作
+                                    tbody
+                                        tr
+                                            td
+                                                a.pull-left.mrm(href='http://192.168.1.21:8090/app.php/course/40')
+                                                    img.course-picture(src='', alt='p', width='100')
+                                                .mlm
+                                                    a(href='http://192.168.1.21:8090/app.php/course/40') p
+                                            td 0
+                                            td 0.00
+                                            td
+                                                span.text-muted 未发布
+                                            td
+                                                .btn-group
+                                                    a.btn.btn-default.btn-sm(href='http://192.168.1.21:8090/app.php/course/40/manage') 管理
+                                                    a.btn.btn-default.btn-sm.dropdown-toggle(href='http://192.168.1.21:8090/app.php/my/teaching/courses#', type='button', data-toggle='dropdown')
+                                                        span.caret
+                                                    ul.dropdown-menu.pull-right
+                                                        li
+                                                            a(href='http://192.168.1.21:8090/app.php/course/40/manage/lesson') 课时管理
+                                                        li
+                                                            a(href='http://192.168.1.21:8090/app.php/course/40/manage/files') 文件管理
+                                                        li
+                                                            a(href='http://192.168.1.21:8090/app.php/course/40/manage/students') 学员管理
+                                nav.text-center
+                                    nav.text-center
+                                        ul.pagination
+                                            li.active
+                                                a(href='') 1
+                                            li
+                                                a(href='') ...
+                                            li
+                                                a(href='') 尾页
+        #login-modal.modal(data-url='/app.php/login/ajax')
+        #modal.modal
+        #attachment-modal.modal
+        include ../footer
+        script(type='text/javascript', src='course_js/courseManage.js')

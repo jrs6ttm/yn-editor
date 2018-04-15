@@ -1,0 +1,12 @@
+doctype html
+html
+    head
+        title 转接页
+        script.
+            var redirection = function (targetUrl) {
+                window.location = targetUrl;
+            }
+    body(onload="redirection('#{redirectTarget}');")
+        h1 页面跳转中，请稍候...
+        each host in hosts
+            img(src = "http://" + host + "/setSysCookie", style = 'display:none;')

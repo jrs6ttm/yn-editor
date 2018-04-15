@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <script type="text/javascript">
+        var MyFunction = function ()
+        {
+            this.DD = "DDDD";
+        };
+
+        var Do_ClickMe = function ()
+        {
+            var objDemo = new MyFunction();
+
+            //指的是当前的函数：Do_ClickMe
+            alert(arguments.callee.name || arguments.callee.toString().match(/function\s*([^(]*)\(/)[1]);
+            
+            //这里指的是调用Do_ClickMe的函数:onclick
+            alert(arguments.callee.caller.name || arguments.callee.caller.toString().match(/function\s*([^(]*)\(/)[1]);
+
+            try
+            {
+                throw new Error("ddddd");
+            }
+            catch (ex)
+            {
+                var bl = (typeof ex == "object" && ex instanceof Error);
+            }
+
+            try
+            {
+                var ni = 5.0 / 0.0;
+            }
+            catch (ex)
+            {
+                var mI = 0;
+            }
+        };
+    </script>
+</head>
+<body>
+    <input type="button" value="ClickMe" onclick="Do_ClickMe();" />
+</body>
+</html>

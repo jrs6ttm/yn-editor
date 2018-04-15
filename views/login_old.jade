@@ -1,0 +1,47 @@
+//
+   Created by xh on 7/28/2015.
+doctype transitional
+html(xmlns="http://www.w3.org/1999/xhtml")
+    head
+        meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
+        title Login;
+    body
+        form(action="/loginHandle", method="post",id = 'check')
+            div(align="center")
+                h1 Login
+            div(align="center")
+                label Username:
+                input#username(type="text", name="username")
+                p
+                    label Password:
+                    input#password(type="password", name="password")
+            div(style="margin:20px auto 20px 40%")
+                input(type='radio',value='process_design',name='design_selection',checked=true)
+                | 课程设计工具
+                br
+                input(type='radio',value='task_design',name='design_selection')
+                | 任务分析工具
+                br
+                input(type='radio',value='task_design&ch=',name='design_selection')
+                | 任务分析工具讨论房间：
+                input(type='number',id='roomNum',name='roomNum',placeholder='房间号',style="width:55px;margin-left:5px;")
+                br
+                input(type='radio',value='subject_design',name='design_selection')
+                | 学科体系课程设计工具
+                br
+            div(align="center")
+                input(type="button", value="Cancel" style="margin-right:20px")
+                input(type="button", value="Login",onclick = "abc()",id = "login")
+        script(type = 'text/javascript', src = 'app_3th_js/jquery/jquery.min.js')
+        script.
+            var abc = function () {
+                var roomNumNew = document.getElementsByName('roomNum')[0].value;
+                var routeValue = $(":checked").val();
+                if (roomNumNew && (routeValue != 'task_design&ch=')){
+                    alert('please choose a correct selection!');
+                } else if ((!roomNumNew) && (routeValue === 'task_design&ch=')){
+                    alert('please input a correct room number!');
+                } else {
+                    check.submit();
+                }
+            }

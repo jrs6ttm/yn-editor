@@ -1,0 +1,50 @@
+link(href='./styles/head_footer.css', rel='stylesheet')
+script(type='text/javascript').
+    var logout = function () {
+        window.location.href = '/logout';
+        //$.get('/app/logout', function (data) {
+        //    if (data){
+        //        window.location.href = 'http://www.xuezuowang.com';
+        //    }
+        //})
+    };
+header#header
+    nav#nav
+        ul#nav-list
+            li
+                a(href='http://' + '#{loginHost}' + '/') 主页
+            li
+                a(target='_blank', href='http://' + '#{loginHost}' + '/app#/courseorg') 课程组织
+            li
+                a(href='/') 易能易编
+    .header-contain
+        a#logo-icon
+            .logo-icon.left
+        .right
+            #logout.item(onclick="logout();")
+                .item-c
+                    .item-i
+                    .item-p
+                        | 注销
+            .dropdown(style="float: right;")
+                #personal.item.dropdown-toggle(data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+                    span #{userName}
+                    img(src='http://' + '#{loginHost}' + '/home/img/home/greenD2.png')
+                ul.dropdown-menu#personal-list(aria-labelledby="personal")
+                    li
+                        a(href='http://' + '#{loginHost}' + '/app#/personal')
+                            // <img src="/app/img/svg/personal.svg">
+                            | 个人
+                    li
+                        a(href='http://' + '#{loginHost}' + '/app#/courseSearch')
+                            // <img src="/app/img/svg/admin.svg">
+                            | 我的课程
+                    li
+                        a(href='http://' + '#{loginHost}' + '/app#/courselog')
+                            // <img src="/app/img/svg/admin.svg">
+                            | 组织记录
+                    li
+                        a(href='http://' + '#{loginHost}' + '/app#/coursemonitor')
+                            // <img src="/app/img/svg/admin.svg">
+                            | 课程监控
+                    // <li><a id="logout"><img src="/app/img/svg/logout.svg">注销</a></li>

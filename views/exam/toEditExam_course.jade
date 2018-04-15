@@ -1,0 +1,199 @@
+//
+   Created by Administrator on 2015/10/29.
+
+doctype html
+html(lang="en")
+   head
+      meta(charset="utf-8")
+      title To Edit Question
+      script(type="text/javascript", src="../app_3th_js/jquery/jquery.min.js")
+      script(type="text/javascript", src="../app_ui_question/underscore.js")
+      script(type="text/javascript", src="../app_ui_question/backbone.js")
+      script(type="text/javascript", src="../app_ui_question/backbone.localStorage.js")
+      link(rel="stylesheet", href="../styles/bootstrap.min.css")
+      script(type="text/javascript", src="../app_ui_question/bootstrap.min.js")
+      script(type="text/javascript").
+         function getDateStrUUID(){
+            var date = new Date();
+            var month = (date.getMonth()+1)<10?'0'+(date.getMonth()+1):(date.getMonth()+1);
+            var day = date.getDate()<10 ? ('0'+date.getDate()) : date.getDate();
+            var hour = date.getHours()<10 ? ('0'+date.getHours()) : date.getHours();
+            var minutes = date.getMinutes()<10 ? ('0'+date.getMinutes()) : date.getMinutes();
+            var seconds = date.getSeconds()<10 ? ('0'+date.getSeconds()) : date.getSeconds();
+            var millSeconds = date.getMilliseconds();
+            if(millSeconds<100){
+               if(millSeconds<10){
+                  millSeconds = '00'+millSeconds;
+               }else {
+                  millSeconds = '0' + millSeconds;
+               }
+            }
+
+            var dateStr = '' + date.getFullYear() +  month +  day +hour +  minutes +  seconds + millSeconds;
+
+            return dateStr;
+         }
+         function isSelectExam(){
+            var examId = $('#selectExam option:selected').val();
+            var value = $('#selectExam option:selected').text();
+            if(examId && examId.trim() != ''){
+               $('#copyOfExamDiv').css('display', 'block');
+               $('#collapseTwo_newExamName').val(value + ' 的副本');
+               $('#showExamInfo').css('display', 'block');
+            }else{
+               $('#copyOfExamDiv').css('display', 'none');
+               $('#collapseTwo_newExamName').val('');
+               $('#showExamInfo').css('display', 'none');
+            }
+         }
+
+         function createExam(){
+            var panel= $('.in', 'body')[0];
+            console.log(panel.id);
+            if(panel.id == 'collapseOne'){
+               var examName = ($('#collapseOne_newExamName').val()).trim();
+               if(examName.length > 100 || examName.length == 0){
+                  var tips = $(panel).find('small').eq(1);
+                   $(tips).css('display', 'block');
+                  return false;
+               }else{
+                  $(panel).find('small').eq(1).css('display', 'none');
+                  var examId = getDateStrUUID();
+                  $("#linkId", window.parent.document).val(examId);
+                  //window.location.href = '/exam/saveExam?examId='+ getDateStrUUID()+'&examName='+examName;
+                  $.get('/exam/saveExam', {examId:examId, examName : examName, editType:'new'}, function(data){
+                     if(data && data.success){
+                        window.location.href = '/exam/editExam?examId='+ examId;
+                     }else{
+                        alert('错误!');
+                     }
+                  });
+               }
+            }else if(panel.id == 'collapseTwo'){
+               var examName = $('#collapseTwo_newExamName').val();
+               if(examName.length > 100 || examName.length == 0){
+                     //$(panel).find('small').eq(2).css('display', 'block');
+                     alert('请先选择一份试卷！');
+                     return false;
+                  }else{
+                     $(panel).find('small').eq(2).css('display', 'none');
+                     alert(mxResources.get('notYetSupported'));
+                     return false;
+                     var examId_copy = $('#selectExam option:selected').val();
+                     var examId = getDateStrUUID();
+                     $("#linkId", window.parent.document).val(examId);
+                     $.get('/exam/saveExam', {examId:examId, examName : examName, examId_copy: examId_copy, editType:'copy'}, function(data){
+                        if(data && data.success){
+                           window.location.href = '/exam/editExam?examId='+ examId;
+                        }else{
+                           alert('错误!');
+                        }
+                     });
+                  }
+            }else if(panel.id == 'collapseThree'){
+               var examName = ($('#collapseThree_newExamName').val()).trim();
+               if(examName.length > 100 || examName.length == 0){
+                  var tips = $(panel).find('small').eq(1);
+                  $(tips).css('display', 'block');
+                  return false;
+               }else{
+                  $(panel).find('small').eq(1).css('display', 'none');
+                  alert(mxResources.get('notYetSupported'));
+                  return false;
+                  var examId = getDateStrUUID();
+                  $("#linkId", window.parent.document).val(examId);
+                  $.get('/exam/saveExam', {examId:examId, examName : examName, editType:'assembly'}, function(data){
+                     if(data && data.success){
+                        window.location.href = '/exam/editExam?examId='+ examId;
+                     }else{
+                        alert('错误!');
+                     }
+                  });
+               }
+            }
+         }
+body
+   .container(style="margin-top: 50px;")
+      #accordion.panel-group
+         .panel.panel-default
+            .panel-heading
+               h4.panel-title
+                  .radio
+                     label
+                        //input(type="radio", name="editType")
+                        a(data-toggle="collapse", data-parent="#accordion", href="#collapseOne")
+                           | &#20174;&#38646;&#24320;&#22987;&#24314;&#31435;&#26032;&#30340;&#35797;&#39064;
+            #collapseOne.panel-collapse.collapse.in
+               .panel-body
+                  form.form-horizontal(role="form")
+                     .form-group
+                        label.col-sm-2.control-label(for="newExamName") &#26631;&#39064;
+                        .col-sm-8
+                           input#collapseOne_newExamName.form-control(type="text", placeholder="请输入试题标题~")
+                           p
+                              small &#24744;&#26368;&#22810;&#21487;&#20197;&#36755;&#20837;100&#20010;&#23383;.
+                           p
+                              button.btn.btn-info.childSubBut(type="button")
+                                 | &#24320;&#22987;&#21019;&#24314;!
+                                 span.glyphicon.glyphicon-arrow-right
+                        small.col-sm-2(style="display: none;")
+                           font(color="red") *&#24517;&#22635;&#65292;&#19988;&#19981;&#36229;&#36807;100&#23383;&#31526;&#65281;
+         .panel.panel-default
+            .panel-heading
+               h4.panel-title
+                  .radio
+                     label
+                        //input(type="radio", name="editType")
+                        a(data-toggle="collapse", data-parent="#accordion", href="#collapseTwo")
+                           | &#32534;&#36753;&#29616;&#26377;&#35797;&#39064;&#30340;&#21103;&#26412;
+            #collapseTwo.panel-collapse.collapse
+               .panel-body
+                  form.form-horizontal(role="form")
+                     .form-group
+                        label.col-sm-2.control-label(for="selectExam") &#21738;&#19968;&#20221;&#35797;&#39064;&#65311;
+                        .col-sm-8
+                           select#selectExam.form-control(onchange="isSelectExam();")
+                              option(value="") ---请选择要复制的试卷---
+                              if(exams && exams.length>0)
+                                 each exam in exams
+                                    option(value="#{exam.examId}") #{exam.examName}
+                           p
+                              small &#35831;&#20174;&#24744;&#24050;&#26377;&#30340;&#35797;&#39064;&#37324;&#36873;&#25321;&#19968;&#20221;.
+                     #copyOfExamDiv.form-group(style="display:none;")
+                        label.col-sm-2.control-label(for="copyOfExamName") &#26032;&#35797;&#39064;&#30340;&#26631;&#39064;
+                        .col-sm-8
+                           input#collapseTwo_newExamName.form-control(type="text")
+                           p
+                              small &#24744;&#26368;&#22810;&#21487;&#20197;&#36755;&#20837;100&#20010;&#23383;.
+                        small.col-sm-2(style="display: none;")
+                           font(color="red") *&#24517;&#22635;&#65292;&#19988;&#19981;&#36229;&#36807;100&#23383;&#31526;&#65281;
+                     div
+                        span.col-sm-2
+                        button.btn.btn-info.childSubBut(type="button")
+                           | &#24320;&#22987;&#21019;&#24314;!
+                           span.glyphicon.glyphicon-arrow-right
+                  #showExamInfo(style="display: none;")
+                     hr
+         .panel.panel-default
+            .panel-heading
+               h4.panel-title
+                  .radio
+                     label
+                        //input(type="radio", name="editType")
+                        a(data-toggle="collapse", data-parent="#accordion", href="#collapseThree")
+                           | 从题库中在线组卷
+            #collapseThree.panel-collapse.collapse
+               .panel-body
+                  form.form-horizontal(role="form")
+                     .form-group
+                        label.col-sm-2.control-label(for="newExamName") &#26631;&#39064;
+                        .col-sm-8
+                           input#collapseThree_newExamName.form-control(type="text", placeholder="请输入试卷标题~")
+                           p
+                              small &#24744;&#26368;&#22810;&#21487;&#20197;&#36755;&#20837;100&#20010;&#23383;.
+                           p
+                              button.btn.btn-info.childSubBut(type="button")
+                                 | 去题库组卷!
+                                 span.glyphicon.glyphicon-arrow-right
+                        small.col-sm-2(style="display: none;")
+                           font(color="red") *&#24517;&#22635;&#65292;&#19988;&#19981;&#36229;&#36807;100&#23383;&#31526;&#65281;

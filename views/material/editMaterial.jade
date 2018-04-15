@@ -1,0 +1,17 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title Edit Materials
+    script(type="text/javascript", src="../app_3th_js/jquery/jquery.min.js")
+    script(type="text/javascript", src="../app_ui_question/underscore.js")
+    script(type="text/javascript", src="../app_ui_question/backbone.js")
+    script(type="text/javascript", src="../app_ui_question/backbone.localStorage.js")
+    link(rel="stylesheet", href="../styles/bootstrap.min.css")
+    script(type="text/javascript", src="../app_3th_js/bootstrap/bootstrap.min.js")
+    script(type="text/javascript", src="../app_3th_js/tinymce/tinymce.min.js")
+  body
+    script(type="text/javascript").
+      var resourceServerHost = #{resourceServerHost};
+    script(type="text/javascript", src="../app_ui_question/material/materialModel.js")
+    script(type="text/javascript", src="../app_ui_question/material/editMaterial.js")

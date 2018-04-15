@@ -1,0 +1,36 @@
+[2018-04-15 23:23:01.163] [ERROR] dateFileLog - [TypeError: Cyclic __proto__ value]
+TypeError: Cyclic __proto__ value
+    at IncomingMessage.set __proto__ (native)
+    at EventEmitter.onmount (E:\yn_workspace\yn-editor\node_modules\express\lib\application.js:94:28)
+    at emitOne (events.js:77:13)
+    at EventEmitter.emit (events.js:169:7)
+    at EventEmitter.<anonymous> (E:\yn_workspace\yn-editor\node_modules\express\lib\application.js:234:8)
+    at Array.forEach (native)
+    at EventEmitter.use (E:\yn_workspace\yn-editor\node_modules\express\lib\application.js:213:7)
+    at E:\yn_workspace\yn-editor\app_ecgeditor_v2.2:55:9
+    at E:\yn_workspace\yn-editor\app_db\dataSource.js:14:13
+    at E:\yn_workspace\yn-editor\node_modules\mongodb\lib\mongo_client.js:436:11
+[2018-04-15 23:24:33.752] [ERROR] dateFileLog - [TypeError: Cyclic __proto__ value]
+TypeError: Cyclic __proto__ value
+    at IncomingMessage.set __proto__ (native)
+    at EventEmitter.onmount (E:\yn_workspace\yn-editor\node_modules\express\lib\application.js:94:28)
+    at emitOne (events.js:77:13)
+    at EventEmitter.emit (events.js:169:7)
+    at EventEmitter.<anonymous> (E:\yn_workspace\yn-editor\node_modules\express\lib\application.js:234:8)
+    at Array.forEach (native)
+    at EventEmitter.use (E:\yn_workspace\yn-editor\node_modules\express\lib\application.js:213:7)
+    at E:\yn_workspace\yn-editor\app_ecgeditor_v2.2:55:9
+    at E:\yn_workspace\yn-editor\app_db\dataSource.js:14:13
+    at E:\yn_workspace\yn-editor\node_modules\mongodb\lib\mongo_client.js:436:11
+[2018-04-15 23:27:07.365] [ERROR] dateFileLog - [TypeError: Cyclic __proto__ value]
+TypeError: Cyclic __proto__ value
+    at IncomingMessage.set __proto__ (native)
+    at EventEmitter.onmount (E:\yn_workspace\yn-editor\node_modules\express\lib\application.js:94:28)
+    at emitOne (events.js:77:13)
+    at EventEmitter.emit (events.js:169:7)
+    at EventEmitter.<anonymous> (E:\yn_workspace\yn-editor\node_modules\express\lib\application.js:234:8)
+    at Array.forEach (native)
+    at EventEmitter.use (E:\yn_workspace\yn-editor\node_modules\express\lib\application.js:213:7)
+    at E:\yn_workspace\yn-editor\app_ecgeditor_v2.2:56:9
+    at E:\yn_workspace\yn-editor\app_db\dataSource.js:14:13
+    at E:\yn_workspace\yn-editor\node_modules\mongodb\lib\mongo_client.js:436:11

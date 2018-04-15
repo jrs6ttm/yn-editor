@@ -1,0 +1,170 @@
+//
+   Created by Administrator on 2016/2/1.
+doctype html
+//if lt IE 7
+  html.no-js.ie6.oldie(lang="en")
+//if IE 7
+  html.no-js.ie7.oldie(lang="en")
+//if IE 8
+  html.no-js.ie8.oldie(lang="en")
+// [if gt IE 8] <!
+html.no-js(lang="de")
+   // <![endif]
+   head
+      meta(charset="utf-8")
+      meta(http-equiv="X-UA-Compatible", content="IE=edge")
+      meta(name="viewport", content="width=device-width, initial-scale=1.0")
+      title 易能教育
+      meta(name="description", content="")
+      meta(name="keywords", content="")
+      meta(name="robots", content="index,follow")
+      // Start Font
+      link(type="text/css", rel="stylesheet", href="../fonts/open-sans/stylesheet.css")
+      link(type="text/css", rel="stylesheet", href="../styles/font-awesome.css")
+      // Font Icon Fontawesome
+      // End Font
+      link(type="text/css", rel="stylesheet", href="../styles/bootstrap.min.css")
+      // Bootstrap
+      link(type="text/css", rel="stylesheet", href="../styles/overwrite.css")
+      // Overwrite
+      // Start Owl Carousel
+      link(type="text/css", rel="stylesheet", href="../styles/owl/owl.carousel.css")
+      link(type="text/css", rel="stylesheet", href="../styles/owl/owl.theme.css")
+      link(type="text/css", rel="stylesheet", href="../styles/owl/owl.transitions.css")
+      // Start Masonry
+      link(type="text/css", rel="stylesheet", href="../styles/masonry.css")
+      // prettyPhoto
+      link(type="text/css", rel="stylesheet", href="../styles/prettyPhoto.css")
+      // Start Default
+      link(type="text/css", rel="stylesheet", href="../styles/icons.css")
+      // Icons
+      link(type="text/css", rel="stylesheet", href="../styles/style.css")
+      // Overwrite
+      link(type="text/css", rel="stylesheet", href="../skins/default.css")
+      // Color
+      // End Default
+      // Just for debugging purposes. Don't actually copy these 2 lines!
+      //if lt IE 9
+        script(src="../app_3th_js/ie8-responsive-file-warning.js")
+      script(src="../app_3th_js/ie-emulation-modes-warning.js")
+      script(type="text/javascript", src="../app_3th_js/jquery-1.11.1.min.js")
+      script(type="text/javascript", src="../app_3th_js/underscore.js")
+      script(type="text/javascript", src="../app_3th_js/backbone.js")
+      script(type="text/javascript", src="../app_3th_js/bootstrap.min.js")
+      // HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
+      //if lt IE 9
+        script(src="../app_3th_js/html5shiv.min.js")
+        script(src="../app_3th_js/respond.min.js")
+      //if IE 9
+        link(rel="stylesheet", type="text/css", href="../styles/ie9.css")
+      //if IE 8
+        link(rel="stylesheet", type="text/css", href="../styles/ie8.css")
+   body#home
+      // Start preloading
+      #loading.loading-invisible
+         .loading-center
+            .loading-center-absolute
+               .object
+               .object
+               .object
+               .object
+               .object
+               .object
+               .object
+               .object
+               .object
+               .object
+            p 请稍后...
+      script(type="text/javascript").
+         document.getElementById("loading").className = "loading-visible";
+         var hideDiv = function(){document.getElementById("loading").className = "loading-invisible";};
+         var oldLoad = window.onload;
+         var newLoad = oldLoad ? function(){hideDiv.call(this);oldLoad.call(this);} : hideDiv;
+         window.onload = newLoad;
+      // End preloading
+      // Start Scroll to top
+      .scroll.top
+         a(href="#home")
+            span.fa.fa-chevron-up
+      // End Scroll to top
+      // Start Scroll to top
+      .scroll.top
+         a(href="#home")
+            span.fa.fa-chevron-up
+      // End Scroll to top
+      // Start Navigation
+      nav.navbar.navbar-default.navbar-fixed-top
+         // Start Submenu
+         .submenu
+            span.ribbon
+            .container(style="width:45%")
+               ul.nav.navbar-nav.navbar-right
+                  li.sub-link
+                     span.fa.fa-envelope
+                     | kefu@xuezuowang.com
+                  li.sub-link
+                     span.fa.fa-phone
+                     | 59705386
+         // End Submenu
+         // Start Mainmenu
+         .mainmenu
+            .container
+               // Brand and toggle get grouped for better mobile display
+               .navbar-header(style="width:20%;")
+                  button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#myMenu")
+                     span.sr-only Toggle navigation
+                     span.icon-bar
+                     span.icon-bar
+                     span.icon-bar
+                  a.navbar-brand(href="http://www.xuezuowang.com/home", title="武汉易能教育")
+                     img.logo(src="../images/index-logo.png", style="width:125px;", alt="易能教育")
+               // Navigation Menu
+
+               #myMenu.collapse.navbar-collapse
+                  ul.nav.navbar-nav.navbar-right
+                     li.scroll.active
+                        a(href="#AnimatedBg") 主页
+                     li.scroll
+                        a(href="#about") 关于我们
+                     li.scroll
+                        a(href="#services") 产品
+                     li.scroll
+                        a(href="#features") 特色
+                     li.scroll
+                        a(href="#blog") 加入我们
+                     li.scroll
+                        a(href="#contact") 联系我们
+         // End Mainmenu
+      // End Navigation
+      .clearfix
+      #main-contents
+      // START JAVASCRIPT
+      // IE10 viewport hack for Surface/desktop Windows 8 bug
+      script(type="text/javascript", src="../app_ui_js/index.js")
+      script(type="text/javascript", src="../app_3th_js/jquery.easing-1.3.min.js")
+      script(src="../app_3th_js/ie10-viewport-bug-workaround.js")
+      // JavaScript animatedBg
+      script(src="../app_3th_js/animatedBg/animatedBg-setting.js")
+      // Scrollspy
+      script(src="../app_3th_js/scrollspy/scrollspy.js")
+      // Owl Script
+      script(type="text/javascript", src="../app_3th_js/owl/owl.carousel.min.js")
+      script(type="text/javascript", src="../app_3th_js/owl/setting.js")
+      // masonry
+      script(src="../app_3th_js/masonry/masonry-3.1.4.js")
+      script(src="../app_3th_js/masonry/masonry.filter.js")
+      script(src="../app_3th_js/masonry/setting.js")
+      // prettyPhoto
+      script(src="../app_3th_js/prettyPhoto/jquery.prettyPhoto.js")
+      script(src="../app_3th_js/prettyPhoto/setting.js")
+      // Parallax
+      script(src="../app_3th_js/parallax/jquery.parallax-1.1.3.js")
+      script(src="../app_3th_js/parallax/setting.js")
+      //if lte IE 9
+        script(src="../app_3th_js/tweecool/jquery.xdomainrequest.min.js")
+      // Twitter Feed
+      script(src="../app_3th_js/tweecool/tweecool.js")
+      script(src="../app_3th_js/tweecool/setting.js")
+      // My Script
+      script(type="text/javascript", src="../app_3th_js/custom.js")
+      // END JAVASCRIPT

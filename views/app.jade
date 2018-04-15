@@ -1,0 +1,150 @@
+doctype html
+//if IE
+  meta(http-equiv='X-UA-Compatible', content='IE=5,IE=9')
+html
+    head
+        title#docTitle Grapheditor
+        meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+        link(rel='stylesheet', type='text/css', href='styles/grapheditor.css')
+        script(type='text/javascript').
+            //var mxBasePath = '.';
+            // Public global variables
+            var MAX_REQUEST_SIZE = 104857600;
+            var MAX_AREA = 10000 * 10000;
+            // URLs for save and export
+            var EXPORT_URL = '/export';
+            var SAVE_URL = '/save';
+            var SAVE_INSTANCE_URL = '/saveInstance';
+            var OPEN_URL = '/open';
+            var Load_URL = '/load';
+            var REMOVE_URL = '/remove';
+            var REMOVE_ALL_URL = '/removeAll';
+            var RESTORE_ALL_URL = '/allToNormal';
+            var TRASH_URL = '/toTrash';
+            var TRASH_TO_NORMAL = '/toNormal';
+            var ALL_TO_TRASH_URL = '/allToTrash';
+            var RENAME_URL = '/rename';
+            var RESOURCES_PATH = 'resources';
+            var RESOURCE_BASE = RESOURCES_PATH + '/grapheditor' ;
+            var STENCIL_PATH = 'stencils';
+            var SHAPES_PATH = 'jsshapes';
+            var IMAGE_PATH = 'images';
+            var STYLE_PATH = 'styles';
+            var CSS_PATH = 'styles';                                                // Specifies connection mode for touch devices (at least one should be true)
+            var OPEN_FORM = 'open.html';
+            var tapAndHoldStartsConnection = false;
+            var showConnectorImg = true;
+            var isListenUrlChange = true;
+            var isStartProcessEngine = #{isStartProcessEngine};
+            var userName = '#{userName}';
+            var userId = '#{userId}';
+            var userRole = '#{userRole}';
+            var apiKey = '#{apiKey}';
+            var resourceServerHost = '#{resourceServerHost}';
+            var MATERIAL_URL = '#{materialUrl}' + '/fileManager';
+            var MATERIAL_FORM_URL = '#{materialUrl}' + '/form';
+            var imageServerHost = '#{imageServerHost}';
+            var engineSocketUrl = '#{engineSocketUrl}';
+            var loginHost = '#{loginHost}';
+            var examUrl = '#{examUrl}';
+            var localHost = '#{localHost}';
+            var pageOfficeHost = '#{pageOfficeHost}';
+            // Parses URL parameters. Supported parameters are:
+            // - lang=xy: Specifies the language of the user interface.
+            // - touch=1: Enables a touch-style user interface.
+            // - storage=local: Enables HTML5 local storage.
+            // - chrome=0: Chromeless mode.
+            var getUrlParam = function (url) {
+                var result = new Object();
+                var idx = url.lastIndexOf('?');
+                if (idx > 0) {
+                    var params = url.substring(idx + 1).split('&');
+                    for (var i = 0; i < params.length; i++) {
+                        idx = params[i].indexOf('=');
+                        if (idx > 0) {
+                            result[params[i].substring(0, idx)] = params[i].substring(idx + 1);
+                        }
+                    }
+                }
+                return result;
+            };
+            var urlParams = getUrlParam(window.location.href);
+            // Sets the base path, the UI language via URL param and configures the
+            // supported languages to avoid 404s. The loading of all core language
+            // resources is disabled as all required resources are in grapheditor.
+            // properties. Note that in this example the loading of two resource
+            // files (the special bundle and the default bundle) is disabled to
+            // save a GET request. This requires that all resources be present in
+            // each properties file since only one file is loaded.
+            var mxLoadResources = false;
+            var mxBasePath = '../../../src';
+            var mxLanguage = urlParams['lang'];
+            var mxUi = urlParams['ui'];
+            var mxLanguages = ['cn'];
+        //script(type='text/javascript', src='jscolor/jscolor.js')
+        script(type='text/javascript', src='app_3th_js/jquery/jquery.min.js')
+        script(type='text/javascript', src='sanitizer/sanitizer.min.js')
+        script(type='text/javascript', src='src/js/mxClient.js')
+        script(type='text/javascript', src='app_ui_js/EditorUi.js')
+        script(type='text/javascript', src='app_ui_js/Editor.js')
+        script(type='text/javascript', src='app_ui_js/Sidebar.js')
+        script(type='text/javascript', src='app_ui_js/Graph.js')
+        script(type='text/javascript', src='app_ui_js/Shapes.js')
+        script(type='text/javascript', src='app_ui_js/Actions.js')
+        script(type='text/javascript', src='app_ui_js/Menus.js')
+        script(type='text/javascript', src='app_ui_js/PropertyForm.js')
+        script(type='text/javascript', src='app_ui_js/ChatBox.js')
+        script(type='text/javascript', src='app_ui_js/Toolbar.js')
+        script(type='text/javascript', src='app_ui_js/Dialogs.js')
+        script(type='text/javascript', src='app_ui_js/FormItems.js')
+        script(type='text/javascript', src='app_ui_js/Communication.js')
+        script(type='text/javascript', src='app_ui_js/appUtils.js')
+        script(type='text/javascript', src='app_3th_js/socket.io/socket.io.js')
+        script(type='text/javascript', src='app_3th_js/history/native.history.js')
+        script(type='text/javascript', src='app_3th_js/marked/marked.min.js')
+        script(type='text/javascript', src='app_3th_js/jQueryCursor/jQuery_CursorOp.js')
+
+        //script(type='text/javascript', src='src/js/native.history.js')
+        //script(type='text/javascript', src='src/js/bootstrap.min.js')
+        //script(type='text/javascript', src='src/js/localeCompare.js')
+        //script(type='text/javascript', src='tinymce/tinymce.min.js')
+        //script(type='text/javascript', src='jplayer/js/jquery.jplayer.js')
+        //script(type='text/javascript', src='app_ui_js/video.js')
+    body.geEditor
+        script(type='text/javascript').
+            // Extends EditorUi to update I/O action states
+
+            (function () {
+
+                var editorUiInit = EditorUi.prototype.init;
+                EditorUi.prototype.init = function () {
+                    editorUiInit.apply(this, arguments);
+                    this.actions.get('export').setEnabled(false);
+                    var enabled = true;
+                    this.actions.get('open').setEnabled(enabled);
+                    this.actions.get('save').setEnabled(enabled);
+                    this.actions.get('saveAs').setEnabled(enabled);
+                    this.actions.get('import').setEnabled(enabled);
+                    this.actions.get('export').setEnabled(enabled);
+                };
+            })();
+            var editor = new Editor(urlParams['chrome'] == '0');
+            var ecEditorUi = new EditorUi(editor);
+            document.getElementById('docTitle').innerHTML = editor.getOrCreateFilename();
+            //		console.log(urlParams['ch']);
+            if (urlParams['gFileId']) {
+                var queryObj = {
+                    gFileId: urlParams['gFileId'],
+                    fileType: mxUi
+                };
+                ecEditorUi.communication.retrieveGraphModel(queryObj, mxUtils.bind(editor, editor.setGraphModel));
+            }
+            if (urlParams['instanceId']) {
+                var queryObj = {
+                    instanceId: urlParams['instanceId'],
+                    isInstance: true
+                };
+                console.log(queryObj);
+                ecEditorUi.communication.retrieveInstance(queryObj, mxUtils.bind(editor, editor.setGraphModel));
+            }

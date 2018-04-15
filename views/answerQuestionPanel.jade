@@ -1,0 +1,132 @@
+﻿doctype html
+html
+   head(lang="en")
+      meta(charset="UTF-8")
+      title Answer
+      script(type="text/javascript", src="app_3th_js/jquery/jquery.min.js")
+      link(rel="stylesheet", href="styles/bootstrap.min.css")
+      script(type="text/javascript", src="app_3th_js/bootstrap/bootstrap.min.js")
+   body(style='backgroud-color:rgb(38.38,38)')
+      if(questionData.id)
+         .panel.panel-default
+            .panel-heading(align='center')
+               h2.panel-title 请你回答
+                  input#questionId(type='hidden' value="#{questionData.id}")
+            .panel-body
+               div
+                  h4 #{questionData.itemDescription}
+            table.table.mySelectionTable
+               if(questionData && questionData.choiceCollection && questionData.choiceCollection.length > 0)
+                  each recordRow in questionData.choiceCollection
+                     tr
+                        td
+                           .form-group
+                              if(questionData.itemType == 'checkbox')
+                                 label.col-sm-1.control-label
+                                    input(type='checkbox', name='aChoiceItem', value='#{recordRow.choiceId}')
+                              else
+                                 label.col-sm-1.control-label
+                                    if(questionData.type == 'preShow' && recordRow.isAnswer)
+                                       input(type='radio', name='aChoiceItem', checked='checked', value='#{recordRow.choiceId}')
+                                    else
+                                       input(type='radio', name='aChoiceItem', value='#{recordRow.choiceId}')
+                              .col-sm-11
+                                 p #{recordRow.choiceDescription}
+
+               tr
+                  td
+                     .form-group
+                        if(questionData.itemType == 'checkbox')
+                           label.col-sm-1.control-label
+                              input(type='checkbox', name='aChoiceItem', value='myAnswer')
+                        else
+                           label.col-sm-1.control-label
+                              input(type='radio', name='aChoiceItem', value='myAnswer')
+                        .col-sm-11
+                           p 自写答案
+                        #myAnswerDiv(style='display:none')
+
+                           textarea#myAnswerContents.form-control(rows='3', placeholder='我的答案')
+            .panel-footer(align='right')
+               button.btn.btn-default(type='button', style='margin-right: 5%;', onclick='saveMyAnswer(this);') 提 交
+      else
+         h3 该问题不存在!
+
+      script(type='text/javascript').
+         $(function(){
+            $('input[name="aChoiceItem"]').click(function(){
+               var value = $(this).val();
+               if(value === "myAnswer"){
+                  if($(this)[0].checked){
+                     //同时把其他checkbox置为未选中
+                     cancelCheckedChoiceItem("other");
+                     $("#myAnswerDiv").css("display", "block");
+                  }
+                  else
+                     $("#myAnswerDiv").css("display", "none");
+               }else{
+                  cancelCheckedChoiceItem("myAnswer");
+                  $("#myAnswerDiv").css("display", "none");
+               }
+            });
+         });
+         function cancelCheckedChoiceItem(type){
+            $('input[name="aChoiceItem"]').each(function(index, element){
+               var value = $(element).val();
+               if(type == "other"){
+                  if(value != "myAnswer"){
+                     $(element)[0].checked = false;
+                  }
+               }else if(type == "myAnswer"){
+                  if(value == "myAnswer"){
+                     $(element)[0].checked = false;
+                  }
+               }
+            });
+         }
+         function saveMyAnswer(Obj){
+            var myAnswer = {
+               itemName: "answer",
+               myChoice: [],
+               myOpenAnswer: ""
+            };
+            var currElement = $('input[name="aChoiceItem"]:checked');
+            if(!currElement.length){
+               alert("请选择答案!");
+               return false;
+            }else if(currElement.length == 1){
+               var checkedValue = $(currElement).val();
+               if(checkedValue == "myAnswer")
+                  myAnswer.myOpenAnswer = $("#myAnswerContents").val();
+               else
+                  myAnswer.myChoice.push(checkedValue);
+            }else{
+               $(currElement).each(function(index, element){
+                  myAnswer.myChoice.push($(this).val());
+               });
+            }
+
+            myAnswer.questionId = $("#questionId").val();
+
+            //return false;
+            $.post("/saveAnswerForm", {myAnswer: JSON.stringify(myAnswer)}, function(data){
+                       if(data && data.success){
+                          if(data.success){
+                             alert("提交成功!");
+                             window.parent.$('#linkId').val(myAnswer.questionId);
+                             console.log(window.parent.$('#linkId').val());
+
+                             $(Obj).attr('disabled', true);
+
+                             if(data.result == 'wrong'){
+                                window.parent.document.getElementById(myAnswer.questionId+"__false").click();
+                             }else{
+                                window.parent.document.getElementById(myAnswer.questionId+"_true").click();
+                             }
+                          }else{
+                             alert("提交失败!");
+                          }
+                       }
+                    }
+            );
+         }
