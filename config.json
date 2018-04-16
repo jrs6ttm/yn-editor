@@ -1,0 +1,147 @@
+{
+  "runMode":"joint",
+
+  "port": {
+    "dev":"4000",
+    "joint":"14000",
+    "test":"34000",
+    "rs":"4000",
+    "prod":"4000",
+    "local":"4000"
+  },
+
+  "dbUrl": "mongodb://localhost:27017/ecgeditor_v2_test",
+
+  "redisClientHost":{
+    "dev":"192.168.1.47:6379",
+    "joint":"192.168.0.92:6379",
+    "test":"192.168.1.155:6379",
+    "rs":"127.0.0.1:6379",
+    "prod":"192.168.0.92:6379",
+    "local":"localhost:6379"
+  },
+
+  "localHost":{
+    "dev":"localhost:4000",
+    "joint":"authoring.xuezuowang.com",
+    "test":"authoring.learn.com",
+    "rs":"10.30.30.101:4000",
+    "prod":"authoring.xuezuowang.com",
+    "local":"localhost:4000"
+  },
+
+  "materialUrl":{
+    "dev":"http://192.168.1.25:8080/ec_engine",
+    "joint":"http://new.xuezuowang.com/yn-engine",
+    "test":"http://newengine.learn.com/ec_engine",
+    "rs":"http://10.30.30.101:8080/ec_engine",
+    "prod":"http://newengine3w.xuezuowang.com/ec_engine",
+    "local":"http://localhost:8080/ec_engine"
+  },
+
+  "pageOfficeHost":{
+    "dev":"newengine.xuezuowang.com",
+    "joint":"new.xuezuowang.com/yn-engine",
+    "test":"newengine.learn.com",
+    "rs":"10.30.30.101:8080",
+    "prod":"newengine3w.xuezuowang.com",
+    "local":"localhost:8080"
+  },
+
+  "loginHost":{
+    "dev":"www.xuezuowang.com",
+    "joint":"new.xuezuowang.com",
+    "test":"org.learn.com",
+    "rs":"10.30.30.101:9188",
+    "prod":"www.xuezuowang.com",
+    "local":"localhost:9188"
+  },
+
+  "orgHost":{
+    "dev":"org.learn.com",
+    "joint":"new.xuezuowang.com",
+    "test":"org.learn.com",
+    "rs":"10.30.30.101:9188",
+    "prod":"www.xuezuowang.com",
+    "local":"localhost:9188"
+  },
+
+  "VMTypeHost":{
+    "dev":"www.xuezuowang.com:10000",
+    "joint":"www.xuezuowang.com:10000",
+    "test":"www.xuezuowang.com:10000",
+    "rs":"10.30.30.103:10000",
+    "rs_test":"193.168.14.64:8080",
+    "prod":"www.xuezuowang.com:10000",
+    "local":"www.xuezuowang.com:10000"
+  },
+
+  "examUrl":{
+    "dev":"http://www.xuezuowang.com:9177",
+    "joint":"http://exam.xuezuowang.com",
+    "test":"http://www.xuezuowang.com:9177",
+    "rs":"http://10.30.30.101:9177",
+    "prod":"http://exam.xuezuowang.com",
+    "local":"http://localhost:9177"
+  },
+
+  "ignoreMe": "=======ignore-configs-below======",
+  "sessionDBUrl":{
+    "dev":"mongodb://localhost:27017/session_store"
+  },
+  "cookieDomain": {
+    "dev":"192.168.1.44"
+  },
+
+  "isStartProcessEngine":false,
+  "ocAuth": "root:admin@root0",
+
+  "resourceServerHost":{
+    "dev":"http://office.learn.com:8088/OfficeTransfer/",
+    "joint":"http://office.learn.com:8088/OfficeTransfer/",
+    "test":"http://office.learn.com:8088/OfficeTransfer/",
+    "rs":"",
+    "prod":"http://www.xuezuowang.com:28088/OfficeTransfer/",
+    "local":""
+  },
+  "imageServerHost":{
+    "dev":"http://office.learn.com:8088/OfficeTransfer/",
+    "joint":"http://192.168.1.44:8080/OfficeTransfer/",
+    "test":"http://office.learn.com:8088/OfficeTransfer/",
+    "rs":"",
+    "prod":"http://www.xuezuowang.com:28088/OfficeTransfer/",
+    "local":""
+  },
+  "engineSocketUrl":{
+    "dev":"http://192.168.1.40:5000",
+    "joint":"http://www.ec.edu:5000",
+    "test":"",
+    "rs":"",
+    "prod":"http://192.168.0.232:5000",
+    "local":""
+  },
+  "playerHost":{
+    "dev":"http://192.168.1.64:3000",
+    "joint":"http://player.ec.edu",
+    "test":"http://oc.learn.com/index.php/apps/courseplayer/",
+    "rs":"",
+    "prod":"http://new.xuezuowang.com/index.php/apps/courseplayer/",
+    "local":""
+  },
+  "ocFileHost":{
+    "dev":"oc.learn.com:80",
+    "joint":"192.168.1.47:80",
+    "test":"oc.learn.com:80",
+    "rs":"",
+    "prod":"192.168.0.92:80",
+    "local":""
+  },
+  "UMBHost":{
+    "dev":"192.168.1.188:13500",
+    "joint":"192.168.1.188:13500",
+    "test":"",
+    "rs":"",
+    "prod":"192.168.0.232:3500",
+    "local":""
+  }
+}
