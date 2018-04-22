@@ -702,14 +702,12 @@ var subCourses = {
                 alert('已经是第一个， 不能上移了！');
                 return false;
             }
-
             subCourseId2 =  $('li[data-course-index='+(currSubCourseIndex-1)+']', '#sub-course-item-list').eq(0).attr('id');
         }else{
             if($('li[data-course-index='+(currSubCourseIndex + 1) +']', '#sub-course-item-list').length <= 0){
                 alert('已经是最后一个， 不能下移了！');
                 return false;
             }
-
             subCourseId2 = $('li[data-course-index='+(currSubCourseIndex + 1) +']', '#sub-course-item-list').eq(0).attr('id');
         }
 
@@ -719,7 +717,7 @@ var subCourses = {
                 subCourseId1: subCourseId,
                 subCourseId2: subCourseId2
             };
-            $.post('/exChangeSubCourse', exchangeObj, function (msg) {
+            $.post('/exchangeSubCourse', exchangeObj, function (msg) {
                 if (msg.success){
                     subCourses.initUi();
                 } else {
