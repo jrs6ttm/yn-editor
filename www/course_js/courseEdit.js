@@ -695,9 +695,9 @@ var subCourses = {
     },
     exchange: function (type, subCourseId) {
         var subCourseId2 = '';
-        var currSubCourseIndex = $('#'+subCourseId, '#sub-course-item-list').eq(0).attr('data-course-index');
+        var currSubCourseIndex = parseInt($('#'+subCourseId, '#sub-course-item-list').eq(0).attr('data-course-index'));
         if(type == 'up'){
-            if(currSubCourseIndex == '1'){
+            if(currSubCourseIndex == 1){
                 alert('已经是第一个， 不能上移了！');
                 return false;
             }
