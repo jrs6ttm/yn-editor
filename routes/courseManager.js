@@ -584,7 +584,7 @@ Controller.prototype.exchangeSubCourse = function(req,res){
                 var subCourseIdsStr = subCourseIds.join(",").replace(subCourseId2, "subCourseId2").replace(subCourseId1, subCourseId2).replace("subCourseId2", subCourseId1);
                 courseService.update(parentId, {subCourseIds:subCourseIdsStr.split(",")}, function(msg){
                     if (msg.success){
-                        next();
+                        res.send(msg);
                     }else {
                         res.send(message.genSimpFailedMsg('fail-to-exchange-subCOurse', null));
                     }
