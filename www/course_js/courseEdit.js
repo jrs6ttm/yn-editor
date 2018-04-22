@@ -486,6 +486,7 @@ var subCourses = {
         })
     },
     initUi: function(){
+        $('#sub-course-item-list').html('');
         subCourses.index = 0;
         subCourses.makeModal();
         subCourses.getSubCourseInfoList(function () {
@@ -720,7 +721,7 @@ var subCourses = {
             };
             $.post('/exChangeSubCourse', exchangeObj, function (msg) {
                 if (msg.success){
-                    subCourses.getSubCourseInfoList();
+                    subCourses.initUi();
                 } else {
                     alert("交换位置失败！");
                 }
@@ -758,6 +759,9 @@ var subCourses = {
                     list.html(list.html() + subCourses.makeSubCourseItem(++(subCourses.index), msg.data));
                     $('#modal').modal('hide');
                     subCourses.getSubCourseInfoList();
+
+                    //法二
+                    //subCourses.initUi();
                 } else {
                     //todo tips '保存失败'
                     console.log(msg);
