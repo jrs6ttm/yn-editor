@@ -523,7 +523,7 @@ var subCourses = {
             title = infoObj.name,
             status = (infoObj.isPublished)?'':'（未发布）',
             publishBtn = (infoObj.isPublished)?'取消发布':'发布';
-        var oneSubCourseHtml = '<li id=' + id + ' data-course-index = "'+status+'" style="word-break: break-all;" class="item-lesson clearfix"> ' +
+        var oneSubCourseHtml = '<li id=' + id + ' data-course-index = "'+num+'" style="word-break: break-all;" class="item-lesson clearfix"> ' +
             '<div class="item-line"></div> ' +
             '<div class="item-content">' +
             '<i class="fa fa-file-photo-o text-success"></i>' + Course.subTypeTxt +'<span class="number">' + num + '</span>：' + title + '<span></span>' +
@@ -695,21 +695,21 @@ var subCourses = {
     },
     exchange: function (type, subCourseId) {
         var subCourseId2 = '';
-        var currSubCourseIndex = $('#'+subCourseId, '#sub-course-item-list').attr('data-course-index');
+        var currSubCourseIndex = $('#'+subCourseId, '#sub-course-item-list').eq(0).attr('data-course-index');
         if(type == 'up'){
             if(currSubCourseIndex == '1'){
                 alert('已经是第一个， 不能上移了！');
                 return false;
             }
 
-            subCourseId2 =  $('li[data-course-index='+(currSubCourseIndex-1)+']', '#sub-course-item-list').val('id');
+            subCourseId2 =  $('li[data-course-index='+(currSubCourseIndex-1)+']', '#sub-course-item-list').eq(0).attr('id');
         }else{
-            if($('li[data-course-index='+(currSubCourseIndex + 1) +']', '#sub-course-item-list').attr <= 0){
+            if($('li[data-course-index='+(currSubCourseIndex + 1) +']', '#sub-course-item-list').length <= 0){
                 alert('已经是最后一个， 不能下移了！');
                 return false;
             }
 
-            subCourseId2 = $('li[data-course-index='+(currSubCourseIndex + 1) +']', '#sub-course-item-list').attr('id');
+            subCourseId2 = $('li[data-course-index='+(currSubCourseIndex + 1) +']', '#sub-course-item-list').eq(0).attr('id');
         }
 
         if (subCourseId && subCourseId2){
