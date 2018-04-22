@@ -76,6 +76,10 @@ var Controller = function (router) {
         res.send(controller.categoryTrees);
     });
     //save or update a instance
+    router.post('/exChangeSubCourse', checkSession2, function (req, res) {
+        controller.exChangeSubCourse(req, res);
+    });
+    //save or update a instance
     router.post('/saveInstance', checkSession2, function (req, res) {
         controller.saveSubCourse(req, res);
     });
@@ -567,6 +571,29 @@ Controller.prototype.changeCoursePublicState = function(req,res){
     courseService.changePublicState(fileId,permission, req.session.userData.id,function(message){
         res.send(message);
     });
+};
+
+Controller.prototype.exChangeSubCourse = function(req,res){
+    var parentId = req.body.parentId;
+    var subCourseId1 = req.body.subCourseId1;
+    var subCourseId2 = req.body.subCourseId2;
+    courseService.loadInfo(parentId, function(msg){
+        if (msg.success){
+            var subCourseIds = (msg.data.subCourseIds)?(msg.data.subCourseIds):[];
+            if(subCourseIds.length > 0){
+                var subCourseIdsStr = subCourseIds.join(",").replace(subCourseId2, "subCourseId2").replace(subCourseId1, subCourseId2).replace("subCourseId2", subCourseId1);
+                courseService.update(parentId, {subCourseIds:subCourseIdsStr.split(",")}, function(msg){
+                    if (msg.success){
+                        next();
+                    }else {
+                        res.send(message.genSimpFailedMsg('fail-to-exchange-subCOurse', null));
+                    }
+                });
+            }else {
+                res.send(message.genSimpFailedMsg('fail-to-exchange-subCOurse', null));
+            }
+        }
+    })
 };
 
 //from 'save'

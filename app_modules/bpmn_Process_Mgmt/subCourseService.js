@@ -87,7 +87,7 @@ exports.formatInfo = function(data, type) {
     }
 };
 
-exports.createCourse = function (graphXml, name, parentId, briefDes, detailDes, courseType, fileIcon, isCooperation, groupRange, rolePool, user, next) {
+exports.createCourse = function (graphXml, name, parentId, briefDes, detailDes, courseType, fileIcon, isCooperation, groupRange, rolePool, user,next) {
     var id = uuid.v1();
     fs.writeFileSync(path.join(__dirname, '../../_static_content/BPMN_files/normal/' + id + '.xml'), graphXml, 'utf-8');
     var instanceData = {

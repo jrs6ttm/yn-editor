@@ -265,16 +265,20 @@ var basicInfo = {
                 categoryId: categoryId
             }, function (msg) {
                 if (msg.success){
+                    alert("保存成功！");
                     Course.title = msg.data.title;
                     Course.briefDes = msg.data.briefDes;
                     Course.categoryId = msg.data.categoryId;
                     showContent('基本信息', '');
                     $('#banner-couseTitle').text(Course.title);
+                }else{
+                    alert("抱歉，保存成功！");
                 }
             })
         } else{
             console.log('标题无效，请检查');
             //todo tips '标题无效，请检查'
+            alert("标题无效，请检查！");
         }
     },
     checkAndFormatName : function (name) {
@@ -519,7 +523,7 @@ var subCourses = {
             title = infoObj.name,
             status = (infoObj.isPublished)?'':'（未发布）',
             publishBtn = (infoObj.isPublished)?'取消发布':'发布';
-        var oneSubCourseHtml = '<li id=' + id + ' style="word-break: break-all;" class="item-lesson clearfix"> ' +
+        var oneSubCourseHtml = '<li id=' + id + ' data-course-index = "'+status+'" style="word-break: break-all;" class="item-lesson clearfix"> ' +
             '<div class="item-line"></div> ' +
             '<div class="item-content">' +
             '<i class="fa fa-file-photo-o text-success"></i>' + Course.subTypeTxt +'<span class="number">' + num + '</span>：' + title + '<span></span>' +
@@ -537,6 +541,13 @@ var subCourses = {
             '<a class="delete-lesson-btn btn btn-link" onclick="subCourses.deleteSubCourseItem(\'' + id + '\');"> <span class="glyphicon glyphicon-trash prs" ></span>删除</a>' +
             //'<a data-toggle="modal" data-target="#modal"  title="" class="btn btn-link"><span class="es-icon es-icon-edit prs"></span>编辑</a>' +
             //'<a href="" target="_blank" title="" class="btn btn-link"><span class="es-icon es-icon-visibility prs"></span>预览</a>' +
+            '<span class="dropdown">' +
+            '<a id="dropdown-more-move" data-toggle="dropdown" href="#" class="dropdown-toggle btn btn-link" ><span class="glyphicon glyphicon-menu-down prs"></span>移动</a>' +
+            '<ul class="dropdown-menu" style="width:70px">' +
+                '<li><a href="#" onclick="subCourses.exchange(\'up\', \'' + id + '\')" >上移</a></li>' +
+                '<li><a href="#" onclick="subCourses.exchange(\'down\', \'' + id + '\')" >下移</a></li>' +
+            '</ul>' +
+            '</span>' +
             '</div> </li> ';
         return oneSubCourseHtml;
     },
@@ -682,6 +693,43 @@ var subCourses = {
             });
         })
     },
+    exchange: function (type, subCourseId) {
+        var subCourseId2 = '';
+        var currSubCourseIndex = $('#'+subCourseId, '#sub-course-item-list').attr('data-course-index');
+        if(type == 'up'){
+            if(currSubCourseIndex == '1'){
+                alert('已经是第一个， 不能上移了！');
+                return false;
+            }
+
+            subCourseId2 =  $('li[data-course-index='+(currSubCourseIndex-1)+']', '#sub-course-item-list').val('id');
+        }else{
+            if($('li[data-course-index='+(currSubCourseIndex + 1) +']', '#sub-course-item-list').attr <= 0){
+                alert('已经是最后一个， 不能下移了！');
+                return false;
+            }
+
+            subCourseId2 = $('li[data-course-index='+(currSubCourseIndex + 1) +']', '#sub-course-item-list').attr('id');
+        }
+
+        if (subCourseId && subCourseId2){
+            var exchangeObj = {
+                parentId: Course.id,
+                subCourseId1: subCourseId,
+                subCourseId2: subCourseId2
+            };
+            console.log(exchangeObj);
+            /*
+            $.post('/exChangeSubCourse', exchangeObj, function (msg) {
+                if (msg.success){
+                    subCourses.getSubCourseInfoList();
+                } else {
+                    alert("交换位置失败！");
+                }
+            });
+            */
+        }
+    },
     create: function () {
         var title = basicInfo.checkAndFormatName($('#sub-course-title-input').val());
         var courseType = Course.type;
@@ -696,7 +744,7 @@ var subCourses = {
         if (title){
             //save to db
             var subCourseObj = {
-                isUpdateFile:false,
+                isUpdateFile: false,
                 rolePool: JSON.stringify([{"roleId":"学生","roleName":"学生"}]),
                 name: title,
                 parentId: Course.id,

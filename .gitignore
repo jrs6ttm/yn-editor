@@ -52,8 +52,9 @@ node_modules/
 
 # ignore others
 _tmp/
-_static_content/BPMN_files/normal/
-_static_content/BPMN_files/trash/
+_static_content/BPMN_files
+_static_content/logFolder
 _staticContent/learning_resources
+www/app_3th_js/fonts
 www/_test
 #config.json

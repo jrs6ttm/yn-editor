@@ -3,7 +3,7 @@
 
   "port": {
     "dev":"4000",
-    "joint":"14000",
+    "joint":"24000",
     "test":"34000",
     "rs":"4000",
     "prod":"4000",
@@ -23,7 +23,7 @@
 
   "localHost":{
     "dev":"localhost:4000",
-    "joint":"authoring.xuezuowang.com",
+    "joint":"authoring2.xuezuowang.com",
     "test":"authoring.learn.com",
     "rs":"10.30.30.101:4000",
     "prod":"authoring.xuezuowang.com",
@@ -78,7 +78,7 @@
 
   "examUrl":{
     "dev":"http://www.xuezuowang.com:9177",
-    "joint":"http://exam.xuezuowang.com",
+    "joint":"http://oldengine.xuezuowang.com",
     "test":"http://www.xuezuowang.com:9177",
     "rs":"http://10.30.30.101:9177",
     "prod":"http://exam.xuezuowang.com",

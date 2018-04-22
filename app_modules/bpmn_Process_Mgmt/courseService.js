@@ -227,7 +227,7 @@ exports.getSubCourseIdArr = function(fileId, next) {
     //v2.2
     this.loadInfo(fileId, function (msg) {
         next(message.genSimpSuccessMsg('', (msg.data.subCourseIds)?(msg.data.subCourseIds):[]));
-    });
+});
     /*fs.readFile(path.join(__dirname, '../../_static_content/BPMN_files/normal/' + fileId + '.xml'), 'utf-8', function (err, data) {
         if (err) {
             next(message.genSimpFailedMsg('deleted', null));
