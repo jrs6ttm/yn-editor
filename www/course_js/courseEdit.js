@@ -272,7 +272,7 @@ var basicInfo = {
                     showContent('基本信息', '');
                     $('#banner-couseTitle').text(Course.title);
                 }else{
-                    alert("抱歉，保存成功！");
+                    alert("抱歉，保存失败！");
                 }
             })
         } else{
