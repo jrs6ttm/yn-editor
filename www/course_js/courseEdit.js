@@ -718,8 +718,6 @@ var subCourses = {
                 subCourseId1: subCourseId,
                 subCourseId2: subCourseId2
             };
-            console.log(exchangeObj);
-            /*
             $.post('/exChangeSubCourse', exchangeObj, function (msg) {
                 if (msg.success){
                     subCourses.getSubCourseInfoList();
@@ -727,7 +725,6 @@ var subCourses = {
                     alert("交换位置失败！");
                 }
             });
-            */
         }
     },
     create: function () {
