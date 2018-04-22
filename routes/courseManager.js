@@ -76,8 +76,8 @@ var Controller = function (router) {
         res.send(controller.categoryTrees);
     });
     //save or update a instance
-    router.post('/exChangeSubCourse', checkSession2, function (req, res) {
-        controller.exChangeSubCourse(req, res);
+    router.post('/exchangeSubCourse', checkSession2, function (req, res) {
+        controller.exchangeSubCourse(req, res);
     });
     //save or update a instance
     router.post('/saveInstance', checkSession2, function (req, res) {
@@ -573,7 +573,7 @@ Controller.prototype.changeCoursePublicState = function(req,res){
     });
 };
 
-Controller.prototype.exChangeSubCourse = function(req,res){
+Controller.prototype.exchangeSubCourse = function(req,res){
     var parentId = req.body.parentId;
     var subCourseId1 = req.body.subCourseId1;
     var subCourseId2 = req.body.subCourseId2;
