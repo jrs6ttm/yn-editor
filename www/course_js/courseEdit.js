@@ -411,10 +411,10 @@ var icon = {
             xhr.onload = function(e){
                 if(this.status == 200){
                     result = this.response;
-                    if(result === 'error'){
-
+                    var res = JSON.parse(result);
+                    if(res.errorMsg){
+                        alert(res.errorMsg);
                     } else {
-                        var res = JSON.parse(result);
                         res.originalName = imgObj.name;
                         res.materialsId = res.fileId;
                         res.ownerId = Course.teacherId;
