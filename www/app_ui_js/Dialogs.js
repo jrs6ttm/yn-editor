@@ -8773,7 +8773,7 @@ WorkbenchDiv.prototype.addWorkbenchTool = function (uuid, wbToolData) {
                     */
                     var filePath = '', officeId = '';
                     $.ajax({
-                        url: '/yn-engine/fileManager/fileCreate',
+                        url: MATERIAL_URL + '/fileCreate',
                         data:{userId : userId, targetName : fileName, createType : 'own'},
                         cache: false,
                         async:false,
