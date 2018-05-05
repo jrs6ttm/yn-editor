@@ -406,7 +406,7 @@ var icon = {
             formData.append('imageSizes','125m125');//默认图片裁剪大小"125m125_75m75"
             formData.append('file', imgObj);
             var xhr = new XMLHttpRequest();
-            xhr.open('post', MATERIAL_URL + '/fileUpload' ,true);
+            xhr.open('post', MATERIAL_URL + '/ownFileUpload' ,true);
             var result;
             xhr.onload = function(e){
                 if(this.status == 200){

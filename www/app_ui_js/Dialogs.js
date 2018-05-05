@@ -3002,7 +3002,7 @@ var EditLRPropertyDialogBody = function (ui, cell, title, usageType, callback) {
             path = '/saveFileToOC';
             isTransfer = false;
         }*/
-        path = MATERIAL_URL + '/fileUpload';
+        path = MATERIAL_URL + '/ownFileUpload';
         isTransfer = false;
         xhr.open('post', path, true);
         xhr.onload = function(e){
@@ -4613,12 +4613,13 @@ var FilenameDialogBody = function (editorUi, title,isCreate,fileObj,handleRes) {
             formData.append('imageSizes','125m125');//默认图片裁剪大小"125m125_75m75"
             formData.append('file', imgObj);
             var xhr = new XMLHttpRequest();
-            xhr.open('post', MATERIAL_URL + '/fileUpload' ,true);
+            xhr.open('post', MATERIAL_URL + '/ownFileUpload' ,true);
             var result;
             xhr.onload = function(e){
                 if(this.status == 200){
                     result = this.response;
-                    if(result === 'error'){
+                    result = JSON.parse(result);
+                    if (result.errorMsg) {
                         editorUi.showDialog(new tipDialogBody(editorUi, 'edit error'), 300, null, true, true);
                     }
                     var res = JSON.parse(result);
