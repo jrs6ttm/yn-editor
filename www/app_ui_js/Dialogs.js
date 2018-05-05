@@ -2655,7 +2655,7 @@ var  LRShowDialogBody = function(ui, fileName, fileId, path, fileType, ownerId){
 */
         var filePath = '';
         $.ajax({
-            url: '/yn-engine/fileManager/getOwnFiles',
+            url: MATERIAL_URL + '/fileManager/getOwnFiles',
             data:{fileId : arr[0].materialsId},
             cache: false,
             async:false,
@@ -2668,7 +2668,7 @@ var  LRShowDialogBody = function(ui, fileName, fileId, path, fileType, ownerId){
                 }
             }
         });
-        var url = 'http://' + pageOfficeHost + '/yn-engine/pageOffice/editFile.jsp';
+        var url = 'http://' + pageOfficeHost + '/pageOffice/editFile.jsp';
         var permission = 'r';
         var officeHref = "PageOffice://|" + url + "?filePath=" + filePath + "&fileName=" + fileName + "&permission=" + permission + "&userName=" + userName;
 
@@ -8787,7 +8787,7 @@ WorkbenchDiv.prototype.addWorkbenchTool = function (uuid, wbToolData) {
                             }
                         }
                     });
-                    var url = 'http://' + pageOfficeHost + '/yn-engine/pageOffice/editFile.jsp';
+                    var url = 'http://' + pageOfficeHost + '/pageOffice/editFile.jsp';
                     //var officeId = me.editorUi.genTimeRandId();
                     var hiddenTag = document.getElementById('hiddenTag');
                     hiddenTag.href = "PageOffice://|" + url + "?filePath=" + filePath + "&fileName=" + fileName + "&type=" + type + "&userName=" + userName;

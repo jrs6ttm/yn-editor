@@ -6036,7 +6036,7 @@
                                 */
                                     var filePath = '';
                                     $.ajax({
-                                        url: '/yn-engine/fileManager/getOwnFiles',
+                                        url: MATERIAL_URL + '/fileManager/getOwnFiles',
                                         data:{fileId : arr[0].materialsId},
                                         cache: false,
                                         async:false,
@@ -6049,7 +6049,7 @@
                                             }
                                         }
                                     });
-                                    var url = 'http://' + pageOfficeHost + '/yn-engine/pageOffice/editFile.jsp';
+                                    var url = 'http://' + pageOfficeHost + '/pageOffice/editFile.jsp';
                                     var permission = 'r';
                                     fileUrl = "PageOffice://|" + url + "?filePath=" + filePath + "&fileName=" + arr[0].fileName + "&permission=" + permission + "&userName=" + arr[0].ownerId;
                                }else if (arr[0].fileType == 'html' || arr[0].fileType == 'txt'){

@@ -32,19 +32,19 @@
 
   "materialUrl":{
     "dev":"http://192.168.1.25:8080/ec_engine",
-    "joint":"http://new.xuezuowang.com/yn-engine",
+    "joint":"http://newengine.xuezuowang.com/yn-engine",
     "test":"http://newengine.learn.com/ec_engine",
     "rs":"http://10.30.30.101:8080/ec_engine",
-    "prod":"http://newengine3w.xuezuowang.com/ec_engine",
+    "prod":"http://newengine3w.xuezuowang.com/yn-engine",
     "local":"http://localhost:8080/ec_engine"
   },
 
   "pageOfficeHost":{
     "dev":"newengine.xuezuowang.com",
-    "joint":"new.xuezuowang.com/yn-engine",
+    "joint":"newengine.xuezuowang.com/yn-engine",
     "test":"newengine.learn.com",
     "rs":"10.30.30.101:8080",
-    "prod":"newengine3w.xuezuowang.com",
+    "prod":"newengine3w.xuezuowang.com/yn-engine",
     "local":"localhost:8080"
   },
 
