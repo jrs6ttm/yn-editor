@@ -10,7 +10,7 @@
     "local":"4000"
   },
 
-  "dbUrl": "mongodb://localhost:27017/ecgeditor_v2_test",
+  "dbUrl": "mongodb://localhost:27017/ecgeditor_v2",
 
   "redisClientHost":{
     "dev":"192.168.1.47:6379",
