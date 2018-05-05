@@ -6036,7 +6036,7 @@
                                 */
                                     var filePath = '';
                                     $.ajax({
-                                        url: MATERIAL_URL + '/fileManager/getOwnFiles',
+                                        url: MATERIAL_URL + '/getOwnFiles',
                                         data:{fileId : arr[0].materialsId},
                                         cache: false,
                                         async:false,
