@@ -2656,7 +2656,7 @@ var  LRShowDialogBody = function(ui, fileName, fileId, path, fileType, ownerId){
         var filePath = '';
         $.ajax({
             url: MATERIAL_URL + '/fileManager/getOwnFiles',
-            data:{fileId : arr[0].materialsId},
+            data:{fileId : fileId},
             cache: false,
             async:false,
             type: 'POST',
