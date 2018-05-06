@@ -57,4 +57,4 @@ _static_content/logFolder
 _staticContent/learning_resources
 www/app_3th_js/fonts
 www/_test
-#config.json
+config.json
