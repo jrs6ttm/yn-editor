@@ -1,5 +1,5 @@
 {
-  "runMode":"prod",
+  "runMode":"prod_aliyun",
 
   "port": {
     "dev":"4000",
@@ -7,10 +7,11 @@
     "test":"34000",
     "rs":"4000",
     "prod":"4000",
-    "local":"4000"
+    "local":"4000",
+    "prod_aliyun":"8502"
   },
 
-  "dbUrl": "mongodb://localhost:27017/ecgeditor_v2",
+  "dbUrl": "mongodb://47.94.230.26:27017/ecgeditor_v2_aliyun",
 
   "redisClientHost":{
     "dev":"192.168.1.47:6379",
@@ -18,7 +19,8 @@
     "test":"192.168.1.155:6379",
     "rs":"127.0.0.1:6379",
     "prod":"192.168.0.92:6379",
-    "local":"localhost:6379"
+    "local":"localhost:6379",
+    "prod_aliyun":"47.94.230.26:6379"
   },
 
   "localHost":{
@@ -27,7 +29,8 @@
     "test":"authoring.learn.com",
     "rs":"10.30.30.101:4000",
     "prod":"authoring.xuezuowang.com",
-    "local":"localhost:4000"
+    "local":"localhost:4000",
+    "prod_aliyun":"47.94.230.26:8502"
   },
 
   "materialUrl":{
@@ -36,7 +39,8 @@
     "test":"http://newengine.learn.com/ec_engine",
     "rs":"http://10.30.30.101:8080/ec_engine",
     "prod":"http://newengine3w.xuezuowang.com/yn-engine",
-    "local":"http://localhost:8080/ec_engine"
+    "local":"http://localhost:8080/ec_engine",
+    "prod_aliyun":"http://47.94.230.26:8501/yn-engine"
   },
 
   "pageOfficeHost":{
@@ -45,7 +49,8 @@
     "test":"newengine.learn.com",
     "rs":"10.30.30.101:8080",
     "prod":"newengine3w.xuezuowang.com/yn-engine",
-    "local":"localhost:8080"
+    "local":"localhost:8080",
+    "prod_aliyun":"47.94.230.26:8501/yn-engine"
   },
 
   "loginHost":{
@@ -54,7 +59,8 @@
     "test":"org.learn.com",
     "rs":"10.30.30.101:9188",
     "prod":"www.xuezuowang.com",
-    "local":"localhost:9188"
+    "local":"localhost:9188",
+    "prod_aliyun":"47.94.230.26:8500"
   },
 
   "orgHost":{
@@ -63,7 +69,8 @@
     "test":"org.learn.com",
     "rs":"10.30.30.101:9188",
     "prod":"www.xuezuowang.com",
-    "local":"localhost:9188"
+    "local":"localhost:9188",
+    "prod_aliyun":"47.94.230.26:8500"
   },
 
   "VMTypeHost":{
@@ -73,7 +80,8 @@
     "rs":"10.30.30.103:10000",
     "rs_test":"193.168.14.64:8080",
     "prod":"www.xuezuowang.com:10000",
-    "local":"www.xuezuowang.com:10000"
+    "local":"www.xuezuowang.com:10000",
+    "prod_aliyun":"www.xuezuowang.com:10000"
   },
 
   "examUrl":{
@@ -82,7 +90,8 @@
     "test":"http://www.xuezuowang.com:9177",
     "rs":"http://10.30.30.101:9177",
     "prod":"http://exam.xuezuowang.com",
-    "local":"http://localhost:9177"
+    "local":"http://localhost:9177",
+    "prod_aliyun":"http://47.94.230.26:8503"
   },
 
   "ignoreMe": "=======ignore-configs-below======",
