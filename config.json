@@ -8,7 +8,7 @@
     "rs":"4000",
     "prod":"4000",
     "local":"4000",
-    "prod_aliyun":"8502"
+    "prod_aliyun":"7502"
   },
 
   "dbUrl": "mongodb://47.94.230.26:27017/ecgeditor_v2_aliyun",
