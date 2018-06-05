@@ -785,7 +785,7 @@ Controller.prototype.updateCourse = function(req,res){
     var paramObj = {};
     var courseId = req.body.id;
     for (var param in req.body){
-        if (req.body.hasOwnProperty(param) && param!='id'){
+        if (param!='id'){
             paramObj[param] = req.body[param];
         }
     }
@@ -797,7 +797,7 @@ Controller.prototype.updateSubCourseInfo_v2 = function(req,res){
     var paramObj = {};
     var courseId = req.body.id;
     for (var param in req.body){
-        if (req.body.hasOwnProperty(param) && param!='id'){
+        if (param!='id'){
             paramObj[param] = req.body[param];
         }
     }
