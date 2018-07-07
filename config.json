@@ -12,7 +12,7 @@
   },
 
   "dbUrl_aliyun": "mongodb://47.94.230.26:27017/ecgeditor_v2_aliyun",
-  "dbUrl": "mongodb://192.168.0.92:27017/ecgeditor_v2_test",
+  "dbUrl": "mongodb://localhost:27017/ecgeditor_v2_test",
 
   "redisClientHost":{
     "dev":"192.168.1.47:6379",
