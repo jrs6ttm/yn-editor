@@ -1,5 +1,5 @@
 {
-  "runMode":"joint",
+  "runMode":"prod",
 
   "port": {
     "dev":"4000",
@@ -12,7 +12,8 @@
   },
 
   "dbUrl_aliyun": "mongodb://47.94.230.26:27017/ecgeditor_v2_aliyun",
-  "dbUrl": "mongodb://localhost:27017/ecgeditor_v2_test",
+  "dbUrl_test": "mongodb://localhost:27017/ecgeditor_v2_test",
+  "dbUrl": "mongodb://localhost:27017/ecgeditor_v2",
 
   "redisClientHost":{
     "dev":"192.168.1.47:6379",
