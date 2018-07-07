@@ -1,5 +1,5 @@
 {
-  "runMode":"prod_aliyun",
+  "runMode":"joint",
 
   "port": {
     "dev":"4000",
