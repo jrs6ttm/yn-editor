@@ -2943,6 +2943,7 @@ var EditLRPropertyDialogBody = function (ui, cell, title, usageType, callback) {
         var radioDOM = document.getElementsByName('editType');
         if(radioDOM[0].checked){//上传编辑
             learningResObj.isCreated = 'NO';
+            path = MATERIAL_URL + '/ownFileUpload';
 
             var fileInput = document.getElementById('myfile');
             var fileText = fileInput.value;
@@ -2961,6 +2962,8 @@ var EditLRPropertyDialogBody = function (ui, cell, title, usageType, callback) {
 
         }else if(radioDOM[1].checked){//在线编辑
             learningResObj.isCreated = 'YES';
+            path = MATERIAL_URL + '/ownFileUploadByContent';
+
             var richText = eFieldCmpDescription.value;
             //formData.append("uuid",'702bb230-3a08-46b9-856c-ae1c5f96b35f');
             titleText = titleText + '.html';
@@ -3002,7 +3005,6 @@ var EditLRPropertyDialogBody = function (ui, cell, title, usageType, callback) {
             path = '/saveFileToOC';
             isTransfer = false;
         }*/
-        path = MATERIAL_URL + '/ownFileUpload';
         isTransfer = false;
         xhr.open('post', path, true);
         xhr.onload = function(e){
