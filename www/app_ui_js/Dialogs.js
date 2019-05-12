@@ -7357,6 +7357,10 @@ var WorkbenchDiv = function (editorUi, cell,opleLevel) {
             name:'互评',
             value:'comment',
             input: [{name:'-',value:''}]
+        },{
+            name:'远程实验系统',
+            value:'remote',
+            input: [{name:'-',value:''}]
         }
     ];
     if (this.cell.getAttribute('workbench')){
@@ -7509,6 +7513,7 @@ WorkbenchDiv.prototype.formatWBToolData = function (taskId) {
     var me = this;
     var wbToolData = {};
     var inputDom = document.getElementsByName('input' + taskId);
+    var remoteLabInputDom = document.getElementsByName('remoteLabInput' + taskId);
     var selectDom = document.getElementsByName('select' + taskId);
     var radioDom = document.getElementsByName('radio' + taskId);
     var radio2Dom = document.getElementsByName('radio2' + taskId);
@@ -7548,7 +7553,8 @@ WorkbenchDiv.prototype.formatWBToolData = function (taskId) {
                     "materialMaker": ((selectDom[1]).value === 'dynamicForm')?'self':(radio2Dom[0]?(radio2Dom[0].checked?radio2Dom[0].value:radio2Dom[1].value):null)
                 },
                 "VMId": (selectDom[1].value === 'VM') ? selectDom[2].value : null,
-                "questionId": this.questionId[taskId]
+                "questionId": this.questionId[taskId],
+                "remoteLabInfo": ((selectDom[1].value === 'remote' && remoteLabInputDom.length) ? {"name": remoteLabInputDom[0].value,"url": encodeURIComponent(remoteLabInputDom[1].value)} : null)
             },
             "output": {
                 "type": (selectDom[1].value=='comment')?'string':((selectDom[1].value=='choose')?'question':(((selectDom[1].value=='form')||(selectDom[1].value=='dynamicForm'))?'formAttr':'file')),
@@ -8535,8 +8541,22 @@ WorkbenchDiv.prototype.addWorkbenchTool = function (uuid, wbToolData) {
     variableSelectDiv.name = 'select' + uuid;
     variableChooseBox.appendChild(variableSelectDiv);
 
+    //远程实验系统
+    var remoteLabNameBox = this.addItemToTool('远程实验系统名', true, true);
+    remoteLabNameBox.style.display = 'none';    
+    var remoteLabInputBox = this.editorUi.formItems.msInput(null, '100px');
+    remoteLabInputBox.name = 'remoteLabInput' + uuid;
+    remoteLabNameBox.appendChild(remoteLabInputBox);
+    var remoteLabUrlBox = this.addItemToTool('远程实验系统链接', true, true);
+    remoteLabUrlBox.style.display = 'none';    
+    var remoteLabUrlInputBox = this.editorUi.formItems.msInput(null, '150px');
+    remoteLabUrlInputBox.name = 'remoteLabInput' + uuid;
+    remoteLabUrlBox.appendChild(remoteLabUrlInputBox);
+
     //taskToolBox.appendChild(toolTypeBox);
     taskToolBox.appendChild(presetInputBox);
+    taskToolBox.appendChild(remoteLabNameBox);
+    taskToolBox.appendChild(remoteLabUrlBox);
     taskToolBox.appendChild(dataObjChooseBox);
     taskToolBox.appendChild(actionChooseBox);
     taskToolBox.appendChild(variableChooseBox);
@@ -8585,6 +8605,8 @@ WorkbenchDiv.prototype.addWorkbenchTool = function (uuid, wbToolData) {
                     $(presetInputCmb).append("<option value=" + me.options[k].input[i].value + ">" + me.options[k].input[i].name + "</option>");
                 }
                 variableChooseBox.style.display = 'none';
+		remoteLabNameBox.style.display = 'none';
+		remoteLabUrlBox.style.display = 'none';
                 if(toolName.value === 'textArea') {
                     presetInputBox.style.display = 'block';
                     taskOutput.removeAttribute('disabled');
@@ -8646,6 +8668,10 @@ WorkbenchDiv.prototype.addWorkbenchTool = function (uuid, wbToolData) {
                     taskOutput.removeAttribute('disabled');
                 } else if(toolName.value==='comment'){
                     presetInputBox.style.display = 'none';
+                    taskOutput.removeAttribute('disabled');
+                } else if (toolName.value==='remote'){
+                    remoteLabNameBox.style.display = 'block';
+                    remoteLabUrlBox.style.display = 'block';
                     taskOutput.removeAttribute('disabled');
                 }
                 dataObjChooseBox.style.display = 'none';
@@ -8943,6 +8969,12 @@ WorkbenchDiv.prototype.addWorkbenchTool = function (uuid, wbToolData) {
             } else {
                 toolName.value = null;
             }
+        } else if (toolName.value === 'remote'){
+            console.log('2', wbToolData.input.remoteLabInfo)
+            remoteLabNameBox.style.display = 'block';
+            remoteLabUrlBox.style.display = 'block';
+            remoteLabInputBox.value = wbToolData.input.remoteLabInfo.name;
+            remoteLabUrlInputBox.value = decodeURIComponent(wbToolData.input.remoteLabInfo.url);
         }
         //预设内容
         if (wbToolData && wbToolData.input) {
