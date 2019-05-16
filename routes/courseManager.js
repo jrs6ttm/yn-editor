@@ -26,6 +26,7 @@ var Controller = function (router) {
                 res.render('course/courseEdit', {
                     userName: req.session.userData.name,
                     loginHost: router.externalConfig.loginHost[router.externalConfig.runMode],
+                    orgHost: router.externalConfig.orgHost[router.externalConfig.runMode],
                     CourseId: msg.data.id,
                     CourseName: msg.data.fileName,
                     BriefDes: msg.data.briefDes,

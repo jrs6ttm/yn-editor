@@ -88,6 +88,7 @@ module.exports = function (app) {
                     imageServerHost:app.externalConfig.imageServerHost[app.externalConfig.runMode],
                     engineSocketUrl:app.externalConfig.engineSocketUrl[app.externalConfig.runMode],
                     loginHost:app.externalConfig.loginHost[app.externalConfig.runMode],
+                    orgHost:app.externalConfig.orgHost[app.externalConfig.runMode],
                     examUrl:app.externalConfig.examUrl[app.externalConfig.runMode],
                     localHost:app.externalConfig.localHost[app.externalConfig.runMode],
                     pageOfficeHost:app.externalConfig.pageOfficeHost[app.externalConfig.runMode]

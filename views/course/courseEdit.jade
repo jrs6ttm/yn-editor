@@ -32,6 +32,7 @@ html(lang='zh_CN')
             };
             var MATERIAL_URL = '#{MATERIAL_URL}' + '/fileManager';
             var LOGIN_HOST = '#{loginHost}';
+            var ORG_HOST = '#{orgHost}';
             var showContent = function (type, headText) {
                 $.get('/show-content-' + type, function (content) {
                     $('#panel-body').html(content);
@@ -93,5 +94,7 @@ html(lang='zh_CN')
                             #panel-body.panel-body
                                 //include subCourses
         #modal.modal.in(tabindex="-1" role="dialog" aria-labelledby="myModalLabel")
+        #dept-auth-modal.modal.in(tabindex="-1" role="dialog" aria-labelledby="myModalLabel")
+        #user-auth-modal.modal.in(tabindex="-1" role="dialog" aria-labelledby="myModalLabel")
         include ../footer
         script(type='text/javascript', src='course_js/courseEdit.js')
