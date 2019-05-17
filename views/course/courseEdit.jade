@@ -32,7 +32,7 @@ html(lang='zh_CN')
             };
             var MATERIAL_URL = '#{MATERIAL_URL}' + '/fileManager';
             var LOGIN_HOST = '#{loginHost}';
-            var ORG_HOST = 'http://' + ''#{orgHost}';
+            var ORG_HOST = 'http://' + '#{orgHost}';
             var showContent = function (type, headText) {
                 $.get('/show-content-' + type, function (content) {
                     $('#panel-body').html(content);
