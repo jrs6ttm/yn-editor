@@ -711,7 +711,7 @@ var subCourses = {
             $(this).html();
         });
         $('#dept-auth-modal').on('show.bs.modal', function (event) {
-            let modalBody = '<form class="form-horizontal" role="form">' +
+            var modalBody = '<form class="form-horizontal" role="form">' +
                             '   <div class="form-group">' +
                             '       <label for="firstname" class="col-sm-2 control-label">选择组织</label>' +
                             '           <div class="col-sm-3">' +
@@ -733,7 +733,7 @@ var subCourses = {
                             '  </thead>' +
                             '  <tbody></tbody>' +
                             '</table>';
-            let modalBox = '<div class="modal-dialog modal-lg"> ' +
+            var modalBox = '<div class="modal-dialog modal-lg"> ' +
                             '   <div class="modal-content"> ' +
                             '       <div class="modal-header"> ' +
                             '           <button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
@@ -749,7 +749,7 @@ var subCourses = {
             $(this).html(modalBox);
             $.post(ORG_HOST + '/org/getSysOrgList', {}, function (data) {
                 if (data.status == '200'){
-                    let orgOptions = '<option value="">---请选择---</option>';
+                    var orgOptions = '<option value="">---请选择---</option>';
                     data.orgList.each(function(orgInfo){
                         orgOptions += '<option value="' + orgInfo.orgID + '">' + orgInfo.orgFullDes + '</option>';
                     });
@@ -773,8 +773,8 @@ var subCourses = {
         })
     },
     getDeptAuthorizedInfos: function(){
-        let orgID = $('select[name="orgSelect"]', '#dept-auth-modal').val();
-        let deptName = $('input[name="deptName"]', '#dept-auth-modal').val();
+        var orgID = $('select[name="orgSelect"]', '#dept-auth-modal').val();
+        var deptName = $('input[name="deptName"]', '#dept-auth-modal').val();
         if(!orgID){
             alert("请选择一个组织！");
             return false;
@@ -783,16 +783,16 @@ var subCourses = {
             alert("请填写机构名称！");
             return false;
         }
-        let params = {orgID: orgID, deptName: deptName, courseId: Course.id, getType: 'dept'};
+        var params = {orgID: orgID, deptName: deptName, courseId: Course.id, getType: 'dept'};
         $.post(ORG_HOST + '/org/getAuthorizedInfos', params, function (resp) {
-            let authInfoTable = '';
+            var authInfoTable = '';
             if (resp.status == '200'){
                 resp.datas.each(function(authInfo, index){
                     if(!authInfo.rights){
                         authInfo.rights = '';
                     }
-                    let authType1 = authInfo.rights.indexOf('1') != -1 ? 'checked="checked"' : '';
-                    let authType2 = authInfo.rights.indexOf('2') != -1 ? 'checked="checked"' : '';
+                    var authType1 = authInfo.rights.indexOf('1') != -1 ? 'checked="checked"' : '';
+                    var authType2 = authInfo.rights.indexOf('2') != -1 ? 'checked="checked"' : '';
                     authInfoTable += '<tr>' +
                                     '   <td>' + (index + 1) + '</td>' +
                                     '   <td>' + authInfo.orgFullDes + '</td>' +
@@ -815,12 +815,12 @@ var subCourses = {
         });
     },
     dealDeptAuth: function(obj, authInfo){
-        let isChecked = $(obj).attr('checked');
-        let authType = $(obj).attr('value');
-        let authLable = authType == '1' ? '组织' : '学习';
+        var isChecked = $(obj).attr('checked');
+        var authType = $(obj).attr('value');
+        var authLable = authType == '1' ? '组织' : '学习';
         if(isChecked){// 授权
             if(confirm('确定将课程 ' + Course.title + ' 的 ' + authLable + ' 权利授予' + authInfo.deptDes + '吗？')){
-                let authParam = {
+                var authParam = {
                     deptId: authInfo.deptID,
                     right: authType,
                     courseId: Course.id,
@@ -838,7 +838,7 @@ var subCourses = {
             }
         }else{//解除授权
             if(confirm('确定解除' + authInfo.deptDes + '对课程 ' + Course.title + ' 的 ' + authLable + ' 权利吗？')){
-                let cancelAuthParam = {
+                var cancelAuthParam = {
                     deptId: authInfo.deptID,
                     right: authType,
                     courseId: Course.id
@@ -854,12 +854,12 @@ var subCourses = {
             }
         }
     },
-    makeUesrAuthModal: function () {//对机构的课程授权模态框内容
+    makeUserAuthModal: function () {//对机构的课程授权模态框内容
         $('#user-auth-modal').on('hidden.bs.modal', function (event) {
             $(this).html();
         });
         $('#user-auth-modal').on('show.bs.modal', function (event) {
-            let modalBody = '<form class="form-horizontal" role="form">' +
+            var modalBody = '<form class="form-horizontal" role="form">' +
                 '   <div class="form-group">' +
                 '       <label for="firstname" class="col-sm-2 control-label">选择组织</label>' +
                 '           <div class="col-sm-3">' +
@@ -881,7 +881,7 @@ var subCourses = {
                 '  </thead>' +
                 '  <tbody></tbody>' +
                 '</table>';
-            let modalBox = '<div class="modal-dialog modal-lg"> ' +
+            var modalBox = '<div class="modal-dialog modal-lg"> ' +
                 '   <div class="modal-content"> ' +
                 '       <div class="modal-header"> ' +
                 '           <button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
@@ -897,7 +897,7 @@ var subCourses = {
             $(this).html(modalBox);
             $.post(ORG_HOST + '/org/getSysOrgList', {}, function (data) {
                 if (data.status == '200'){
-                    let orgOptions = '<option value="">---请选择---</option>';
+                    var orgOptions = '<option value="">---请选择---</option>';
                     data.orgList.each(function(orgInfo){
                         orgOptions += '<option value="' + orgInfo.orgID + '">' + orgInfo.orgFullDes + '</option>';
                     });
@@ -921,8 +921,8 @@ var subCourses = {
         })
     },
     getUserAuthorizedInfos: function(){
-        let orgID = $('select[name="orgSelect"]', '#dept-auth-modal').val();
-        let deptName = $('input[name="deptName"]', '#dept-auth-modal').val();
+        var orgID = $('select[name="orgSelect"]', '#dept-auth-modal').val();
+        var deptName = $('input[name="deptName"]', '#dept-auth-modal').val();
         if(!orgID){
             alert("请选择一个组织！");
             return false;
@@ -931,16 +931,16 @@ var subCourses = {
             alert("请填写机构名称！");
             return false;
         }
-        let params = {orgID: orgID, deptName: deptName, courseId: Course.id, getType: 'user'};
+        var params = {orgID: orgID, deptName: deptName, courseId: Course.id, getType: 'user'};
         $.post(ORG_HOST + '/org/getAuthorizedInfos', params, function (resp) {
-            let authInfoTable = '';
+            var authInfoTable = '';
             if (resp.status == '200'){
                 resp.datas.each(function(authInfo, index){
                     if(!authInfo.rights){
                         authInfo.rights = '';
                     }
-                    let authType1 = authInfo.rights.indexOf('1') != -1 ? 'checked="checked"' : '';
-                    let authType2 = authInfo.rights.indexOf('2') != -1 ? 'checked="checked"' : '';
+                    var authType1 = authInfo.rights.indexOf('1') != -1 ? 'checked="checked"' : '';
+                    var authType2 = authInfo.rights.indexOf('2') != -1 ? 'checked="checked"' : '';
                     authInfoTable += '<tr>' +
                         '   <td>' + (index + 1) + '</td>' +
                         '   <td>' + authInfo.orgFullDes + '</td>' +
@@ -963,12 +963,12 @@ var subCourses = {
         });
     },
     dealUserAuth: function(obj, authInfo){
-        let isChecked = $(obj).attr('checked');
-        let authType = $(obj).attr('value');
-        let authLable = authType == '1' ? '组织' : '学习';
+        var isChecked = $(obj).attr('checked');
+        var authType = $(obj).attr('value');
+        var authLable = authType == '1' ? '组织' : '学习';
         if(isChecked){// 授权
             if(confirm('确定将课程 ' + Course.title + ' 的 ' + authLable + ' 权利授予' + authInfo.deptDes + '吗？')){
-                let authParam = {
+                var authParam = {
                     deptId: authInfo.deptID,
                     right: authType,
                     courseId: Course.id,
@@ -986,7 +986,7 @@ var subCourses = {
             }
         }else{//解除授权
             if(confirm('确定解除' + authInfo.deptDes + '对课程 ' + Course.title + ' 的 ' + authLable + ' 权利吗？')){
-                let cancelAuthParam = {
+                var cancelAuthParam = {
                     deptId: authInfo.deptID,
                     right: authType,
                     courseId: Course.id
