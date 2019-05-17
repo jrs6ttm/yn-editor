@@ -13,8 +13,8 @@
 
   "dbUrl": {
     "dev": "mongodb://47.94.230.26:27017/ecgeditor_v2_aliyun",
-    "joint": "mongodb://192.168.0.92:27017/ecgeditor_v2_test",
-    "prod": "mongodb://192.168.0.92:27017/ecgeditor_v2",
+    "joint": "mongodb://localhost:27017/ecgeditor_v2_test",
+    "prod": "mongodb://localhost:27017/ecgeditor_v2",
     "prod_aliyun": "mongodb://47.94.230.26:27017/ecgeditor_v2_aliyun"
   },
 
