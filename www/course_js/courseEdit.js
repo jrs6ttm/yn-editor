@@ -808,14 +808,17 @@ var subCourses = {
                                     '   </td>' +
                                     '</tr>';
                 });
+                if(!authInfoTable){
+                    authInfoTable = '<tr><td colspan="5">暂无数据！</td></tr>';
+                }
             } else {
-                authInfoTable = '<tr><td colspan="5">暂无数据！</td></tr>';
+                authInfoTable = '<tr><td colspan="5">查询异常！</td></tr>';
             }
             $('tbody', '#dept-auth-modal').html(authInfoTable);
         });
     },
     dealDeptAuth: function(obj, deptID, deptDes){
-        var isChecked = $(obj).attr('checked');
+        var isChecked = obj.checked;
         var authType = $(obj).attr('value');
         var authLable = authType == '1' ? '组织' : '学习';
         if(isChecked){// 授权
@@ -957,14 +960,17 @@ var subCourses = {
                         '   </td>' +
                         '</tr>';
                 });
+                if(!authInfoTable){
+                    authInfoTable = '<tr><td colspan="5">暂无数据！</td></tr>';
+                }
             } else {
-                authInfoTable = '<tr><td colspan="6">暂无数据！</td></tr>';
+                authInfoTable = '<tr><td colspan="5">查询异常！</td></tr>';
             }
             $('tbody', '#user-auth-modal').html(authInfoTable);
         });
     },
     dealUserAuth: function(obj, deptID, userID, userName){
-        var isChecked = $(obj).attr('checked');
+        var isChecked = obj.checked;
         var authType = $(obj).attr('value');
         var authLable = authType == '1' ? '组织' : '学习';
         if(isChecked){// 授权
@@ -980,7 +986,7 @@ var subCourses = {
                 $.post('/authorizeToUser', authParam, function (resp) {
                     if (resp.status == '200'){
                         alert(resp.datas);
-                        subCourses.getDeptAuthorizedInfos();//刷新table
+                        subCourses.getUserAuthorizedInfos();//刷新table
                     } else {
                         alert("授权失败：" + resp.err);
                     }
@@ -996,7 +1002,7 @@ var subCourses = {
                 $.post('/cancelAuthorizeOfUser', cancelAuthParam, function (resp) {
                     if (resp.status == '200'){
                         alert(resp.datas);
-                        subCourses.getDeptAuthorizedInfos();//刷新table
+                        subCourses.getUserAuthorizedInfos();//刷新table
                     } else {
                         alert("解除授权失败：" + resp.err);
                     }
