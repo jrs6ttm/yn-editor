@@ -903,7 +903,7 @@ var subCourses = {
             $.post('/getSysOrgList', {}, function (data) {
                 if (data.status == '200'){
                     var orgOptions = '<option value="">---请选择---</option>';
-                    $.each(data.orgList, function(orgInfo){
+                    $.each(data.orgList, function(index, orgInfo){
                         orgOptions += '<option value="' + orgInfo.orgID + '">' + orgInfo.orgFullDes + '</option>';
                     });
                     $('select[name="orgSelect"]', '#user-auth-modal').append(orgOptions);
