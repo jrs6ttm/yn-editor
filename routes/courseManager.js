@@ -830,9 +830,7 @@ Controller.prototype.updateSubCourseInfo_v2 = function(req,res){
 Controller.prototype.getSysOrgList = function(req,res){
     var paramObj = {};
     for (var param in req.body){
-        if (param!='id'){
-            paramObj[param] = req.body[param];
-        }
+        paramObj[param] = req.body[param];
     }
     if(req.session.userData){
         paramObj.userData = req.session.userData;
@@ -844,9 +842,7 @@ Controller.prototype.getSysOrgList = function(req,res){
 Controller.prototype.getAuthorizedInfos = function(req,res){
     var paramObj = {};
     for (var param in req.body){
-        if (param!='id'){
-            paramObj[param] = req.body[param];
-        }
+        paramObj[param] = req.body[param];
     }
     if(req.session.userData){
         paramObj.userData = req.session.userData;
@@ -858,9 +854,7 @@ Controller.prototype.getAuthorizedInfos = function(req,res){
 Controller.prototype.authorizeToDept = function(req,res){
     var paramObj = {};
     for (var param in req.body){
-        if (param!='id'){
-            paramObj[param] = req.body[param];
-        }
+        paramObj[param] = req.body[param];
     }
     if(req.session.userData){
         paramObj.userData = req.session.userData;
@@ -872,9 +866,7 @@ Controller.prototype.authorizeToDept = function(req,res){
 Controller.prototype.authorizeToUser = function(req,res){
     var paramObj = {};
     for (var param in req.body){
-        if (param!='id'){
-            paramObj[param] = req.body[param];
-        }
+        paramObj[param] = req.body[param];
     }
     if(req.session.userData){
         paramObj.userData = req.session.userData;
@@ -886,9 +878,7 @@ Controller.prototype.authorizeToUser = function(req,res){
 Controller.prototype.cancelAuthorizeOfDept = function(req,res){
     var paramObj = {};
     for (var param in req.body){
-        if (param!='id'){
-            paramObj[param] = req.body[param];
-        }
+        paramObj[param] = req.body[param];
     }
     if(req.session.userData){
         paramObj.userData = req.session.userData;
@@ -900,9 +890,7 @@ Controller.prototype.cancelAuthorizeOfDept = function(req,res){
 Controller.prototype.cancelAuthorizeOfUser = function(req,res){
     var paramObj = {};
     for (var param in req.body){
-        if (param!='id'){
-            paramObj[param] = req.body[param];
-        }
+        paramObj[param] = req.body[param];
     }
     if(req.session.userData){
         paramObj.userData = req.session.userData;
