@@ -739,7 +739,7 @@ var subCourses = {
                             '           <button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
                             '               <span aria-hidden="true">&times;</span>' +
                             '           </button> ' +
-                            '           <h4 class="modal-title" id="myModalLabel">授 权</h4> ' +
+                            '           <h4 class="modal-title" id="myModalLabel">机构授权管理</h4> ' +
                             '       </div> ' +
                             '       <div class="modal-body">' +
                                     modalBody +
@@ -800,28 +800,28 @@ var subCourses = {
                                     '   <td>' + authInfo.deptDes + '</td>' +
                                     '   <td>' +
                                     '       <label class="checkbox-inline">' +
-                                    '           <input type="checkbox"  value="1" ' + authType1 + ' onchange="subCourses.dealDeptAuth(this, ' + authInfo + ')"> 组织课程' +
+                                    '           <input type="checkbox"  value="1" ' + authType1 + ' onchange="subCourses.dealDeptAuth(this, \'' + authInfo.deptID + '\', \'' + authInfo.deptDes +'\')"> 组织课程' +
                                     '       </label>' +
                                     '       <label class="checkbox-inline">' +
-                                    '           <input type="checkbox"  value="2" ' +authType2 + ' onchange="subCourses.dealDeptAuth(this, ' + authInfo + ')"> 学习课程' +
+                                    '           <input type="checkbox"  value="2" ' +authType2 + ' onchange="subCourses.dealDeptAuth(this, \'' + authInfo.deptID + '\', \'' + authInfo.deptDes +'\')"> 学习课程' +
                                     '       </label>' +
                                     '   </td>' +
                                     '</tr>';
                 });
             } else {
-                authInfoTable = '<tr><td>暂无数据！</td></tr>';
+                authInfoTable = '<tr><td colspan="5">暂无数据！</td></tr>';
             }
-            $('tbody', '#dept-auth-modal').append(authInfoTable);
+            $('tbody', '#dept-auth-modal').html(authInfoTable);
         });
     },
-    dealDeptAuth: function(obj, authInfo){
+    dealDeptAuth: function(obj, deptID, deptDes){
         var isChecked = $(obj).attr('checked');
         var authType = $(obj).attr('value');
         var authLable = authType == '1' ? '组织' : '学习';
         if(isChecked){// 授权
-            if(confirm('确定将课程 ' + Course.title + ' 的 ' + authLable + ' 权利授予' + authInfo.deptDes + '吗？')){
+            if(confirm('确定将课程 ' + Course.title + ' 的 ' + authLable + ' 权利授予' + deptDes + '吗？')){
                 var authParam = {
-                    deptID: authInfo.deptID,
+                    deptID: deptID,
                     right: authType,
                     courseId: Course.id,
                     courseName: Course.title,
@@ -837,9 +837,9 @@ var subCourses = {
                 });
             }
         }else{//解除授权
-            if(confirm('确定解除' + authInfo.deptDes + '对课程 ' + Course.title + ' 的 ' + authLable + ' 权利吗？')){
+            if(confirm('确定解除' + deptDes + '对课程 ' + Course.title + ' 的 ' + authLable + ' 权利吗？')){
                 var cancelAuthParam = {
-                    deptID: authInfo.deptID,
+                    deptID: deptID,
                     right: authType,
                     courseId: Course.id
                 };
@@ -887,7 +887,7 @@ var subCourses = {
                 '           <button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
                 '               <span aria-hidden="true">&times;</span>' +
                 '           </button> ' +
-                '           <h4 class="modal-title" id="myModalLabel">授 权</h4> ' +
+                '           <h4 class="modal-title" id="myModalLabel">人员授权管理</h4> ' +
                 '       </div> ' +
                 '       <div class="modal-body">' +
                 modalBody +
@@ -901,7 +901,7 @@ var subCourses = {
                     $.each(data.orgList, function(orgInfo){
                         orgOptions += '<option value="' + orgInfo.orgID + '">' + orgInfo.orgFullDes + '</option>';
                     });
-                    $('select[name="orgSelect"]', '#dept-auth-modal').append(orgOptions);
+                    $('select[name="orgSelect"]', '#user-auth-modal').append(orgOptions);
                 } else {
                     alert("拉取组织列表失败！");
                 }
@@ -921,8 +921,8 @@ var subCourses = {
         })
     },
     getUserAuthorizedInfos: function(){
-        var orgID = $('select[name="orgSelect"]', '#dept-auth-modal').val();
-        var deptName = $('input[name="deptName"]', '#dept-auth-modal').val();
+        var orgID = $('select[name="orgSelect"]', '#user-auth-modal').val();
+        var deptName = $('input[name="deptName"]', '#user-auth-modal').val();
         if(!orgID){
             alert("请选择一个组织！");
             return false;
@@ -949,29 +949,29 @@ var subCourses = {
                         '   <td>' + authInfo.userName + '</td>' +
                         '   <td>' +
                         '       <label class="checkbox-inline">' +
-                        '           <input type="checkbox"  value="1" ' + authType1 + ' onchange="subCourses.dealUserAuth(this, ' + authInfo + ')"> 组织课程' +
+                        '           <input type="checkbox"  value="1" ' + authType1 + ' onchange="subCourses.dealUserAuth(this, \'' + authInfo.deptID + '\', \'' + authInfo.userID +'\', ' + authInfo.userName + '\')"> 组织课程' +
                         '       </label>' +
                         '       <label class="checkbox-inline">' +
-                        '           <input type="checkbox"  value="2" ' +authType2 + ' onchange="subCourses.dealUserAuth(this, ' + authInfo + ')"> 学习课程' +
+                        '           <input type="checkbox"  value="2" ' +authType2 + ' onchange="subCourses.dealUserAuth(this, \'' + authInfo.deptID + '\', \'' + authInfo.userID +'\', ' + authInfo.userName + '\')"> 学习课程' +
                         '       </label>' +
                         '   </td>' +
                         '</tr>';
                 });
             } else {
-                authInfoTable = '<tr><td>暂无数据！</td></tr>';
+                authInfoTable = '<tr><td colspan="6">暂无数据！</td></tr>';
             }
-            $('tbody', '#dept-auth-modal').append(authInfoTable);
+            $('tbody', '#user-auth-modal').html(authInfoTable);
         });
     },
-    dealUserAuth: function(obj, authInfo){
+    dealUserAuth: function(obj, deptID, userID, userName){
         var isChecked = $(obj).attr('checked');
         var authType = $(obj).attr('value');
         var authLable = authType == '1' ? '组织' : '学习';
         if(isChecked){// 授权
-            if(confirm('确定将课程 ' + Course.title + ' 的 ' + authLable + ' 权利授予' + authInfo.userName + '吗？')){
+            if(confirm('确定将课程 ' + Course.title + ' 的 ' + authLable + ' 权利授予' + userName + '吗？')){
                 var authParam = {
-                    deptID: authInfo.deptID,
-                    userID: authInfo.userID,
+                    deptID: deptID,
+                    userID: userID,
                     right: authType,
                     courseId: Course.id,
                     courseName: Course.title,
@@ -987,9 +987,9 @@ var subCourses = {
                 });
             }
         }else{//解除授权
-            if(confirm('确定解除' + authInfo.userName + '对课程 ' + Course.title + ' 的 ' + authLable + ' 权利吗？')){
+            if(confirm('确定解除' + userName + '对课程 ' + Course.title + ' 的 ' + authLable + ' 权利吗？')){
                 var cancelAuthParam = {
-                    userID: authInfo.userID,
+                    userID: userID,
                     right: authType,
                     courseId: Course.id
                 };
