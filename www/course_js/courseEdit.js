@@ -954,10 +954,10 @@ var subCourses = {
                         '   <td>' + authInfo.userName + '</td>' +
                         '   <td>' +
                         '       <label class="checkbox-inline">' +
-                        '           <input type="checkbox"  value="1" ' + authType1 + ' onchange="subCourses.dealUserAuth(this, \'' + authInfo.deptID + '\', \'' + authInfo.userID +'\', ' + authInfo.userName + '\')"> 组织课程' +
+                        '           <input type="checkbox"  value="1" ' + authType1 + ' onchange="subCourses.dealUserAuth(this, \'' + authInfo.deptID + '\', \'' + authInfo.userID +'\', \'' + authInfo.userName + '\')"> 组织课程' +
                         '       </label>' +
                         '       <label class="checkbox-inline">' +
-                        '           <input type="checkbox"  value="2" ' +authType2 + ' onchange="subCourses.dealUserAuth(this, \'' + authInfo.deptID + '\', \'' + authInfo.userID +'\', ' + authInfo.userName + '\')"> 学习课程' +
+                        '           <input type="checkbox"  value="2" ' +authType2 + ' onchange="subCourses.dealUserAuth(this, \'' + authInfo.deptID + '\', \'' + authInfo.userID +'\', \'' + authInfo.userName + '\')"> 学习课程' +
                         '       </label>' +
                         '   </td>' +
                         '</tr>';
