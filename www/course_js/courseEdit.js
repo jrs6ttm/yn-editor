@@ -529,8 +529,8 @@ var subCourses = {
             authDropdown = '<span class="dropdown">' +
                             '<a id="dropdown-more-move" data-toggle="dropdown" href="#" class="dropdown-toggle btn btn-link" ><span class="glyphicon glyphicon-menu-down prs"></span>授权管理</a>' +
                             '<ul class="dropdown-menu" style="width:70px">' +
-                            '<li><a data-toggle="modal" data-target="#dept-auth-modal"  data-backdrop="static" data-keyboard="false"   class="btn btn-link"><span class="glyphicon glyphicon-list-alt prs"></span>机构授权管理</a></li> ' +
-                            '<li><a data-toggle="modal" data-target="#user-auth-modal"  data-backdrop="static" data-keyboard="false"  class="btn btn-link"><span class="glyphicon glyphicon-list-alt prs"></span>人员授权管理</a></li> ' +
+                            '<li><a data-toggle="modal" data-target="#dept-auth-modal"  data-subindex="'+num+'" data-backdrop="static" data-keyboard="false"   class="btn btn-link"><span class="glyphicon glyphicon-list-alt prs"></span>机构授权管理</a></li> ' +
+                            '<li><a data-toggle="modal" data-target="#user-auth-modal"  data-subindex="'+num+'" data-backdrop="static" data-keyboard="false"  class="btn btn-link"><span class="glyphicon glyphicon-list-alt prs"></span>人员授权管理</a></li> ' +
                             '</ul>' +
                             '</span>' ;
         var oneSubCourseHtml = '<li id=' + id + ' data-course-index = "'+num+'" style="word-break: break-all;" class="item-lesson clearfix"> ' +
@@ -711,6 +711,8 @@ var subCourses = {
             $(this).html();
         });
         $('#dept-auth-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var subindex = button.data('subindex'); // Extract info from data-* attributes
             var modalBody = '<form class="form-horizontal" role="form">' +
                             '   <div class="form-group">' +
                             '       <label for="firstname" class="col-sm-2 control-label">选择组织</label>' +
@@ -739,7 +741,7 @@ var subCourses = {
                             '           <button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
                             '               <span aria-hidden="true">&times;</span>' +
                             '           </button> ' +
-                            '           <h4 class="modal-title" id="myModalLabel">机构授权管理</h4> ' +
+                            '           <h4 class="modal-title" id="deptAuthModalLabel" data-subindex="'+subindex+'">机构授权管理</h4> ' +
                             '       </div> ' +
                             '       <div class="modal-body">' +
                                     modalBody +
@@ -821,13 +823,16 @@ var subCourses = {
         var isChecked = obj.checked;
         var authType = $(obj).attr('value');
         var authLable = authType == '1' ? '组织' : '学习';
+        var subindex = $("#deptAuthModalLabel", '#dept-auth-modal').attr('subindex');
+        var subCourse = subCourses.courseInfoList[parseInt(subindex)];
         if(isChecked){// 授权
-            if(confirm('确定将课程 ' + Course.title + ' 的 ' + authLable + ' 权利授予' + deptDes + '吗？')){
+            //if(confirm('确定将课程 ' + Course.title + ' 的 ' + authLable + ' 权利授予' + deptDes + '吗？')){
+            if(confirm('确定将课程 ' + subCourse.name + ' 的 ' + authLable + ' 权利授予' + deptDes + '吗？')){
                 var authParam = {
                     deptID: deptID,
                     right: authType,
-                    courseId: Course.id,
-                    courseName: Course.title,
+                    courseId: subCourse.id,
+                    courseName: subCourse.name,
                     courseType: '2'
                 };
                 $.post('/authorizeToDept', authParam, function (resp) {
@@ -841,11 +846,11 @@ var subCourses = {
                 });
             }
         }else{//解除授权
-            if(confirm('确定解除' + deptDes + '对课程 ' + Course.title + ' 的 ' + authLable + ' 权利吗？')){
+            if(confirm('确定解除' + deptDes + '对课程 ' + subCourse.name + ' 的 ' + authLable + ' 权利吗？')){
                 var cancelAuthParam = {
                     deptID: deptID,
                     right: authType,
-                    courseId: Course.id
+                    courseId: subCourse.id
                 };
                 $.post('/cancelAuthorizeOfDept', cancelAuthParam, function (resp) {
                     if (resp.status == '200'){
@@ -864,6 +869,8 @@ var subCourses = {
             $(this).html();
         });
         $('#user-auth-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var subindex = button.data('subindex'); // Extract info from data-* attributes
             var modalBody = '<form class="form-horizontal" role="form">' +
                 '   <div class="form-group">' +
                 '       <label for="firstname" class="col-sm-2 control-label">选择组织</label>' +
@@ -892,7 +899,7 @@ var subCourses = {
                 '           <button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
                 '               <span aria-hidden="true">&times;</span>' +
                 '           </button> ' +
-                '           <h4 class="modal-title" id="myModalLabel">人员授权管理</h4> ' +
+                '           <h4 class="modal-title" id="userAuthModalLabel" data-subindex="'+subindex+'">人员授权管理</h4> ' +
                 '       </div> ' +
                 '       <div class="modal-body">' +
                 modalBody +
@@ -975,14 +982,16 @@ var subCourses = {
         var isChecked = obj.checked;
         var authType = $(obj).attr('value');
         var authLable = authType == '1' ? '组织' : '学习';
+        var subindex = $("#userAuthModalLabel", '#user-auth-modal').attr('subindex');
+        var subCourse = subCourses.courseInfoList[parseInt(subindex)];
         if(isChecked){// 授权
-            if(confirm('确定将课程 ' + Course.title + ' 的 ' + authLable + ' 权利授予' + userName + '吗？')){
+            if(confirm('确定将课程 ' + subCourse.name + ' 的 ' + authLable + ' 权利授予' + userName + '吗？')){
                 var authParam = {
                     deptID: deptID,
                     userID: userID,
                     right: authType,
-                    courseId: Course.id,
-                    courseName: Course.title,
+                    courseId: subCourse.id,
+                    courseName: subCourse.name,
                     courseType: '2'
                 };
                 $.post('/authorizeToUser', authParam, function (resp) {
@@ -996,11 +1005,11 @@ var subCourses = {
                 });
             }
         }else{//解除授权
-            if(confirm('确定解除' + userName + '对课程 ' + Course.title + ' 的 ' + authLable + ' 权利吗？')){
+            if(confirm('确定解除' + userName + '对课程 ' + subCourse.name + ' 的 ' + authLable + ' 权利吗？')){
                 var cancelAuthParam = {
                     userID: userID,
                     right: authType,
-                    courseId: Course.id
+                    courseId: subCourse.id
                 };
                 $.post('/cancelAuthorizeOfUser', cancelAuthParam, function (resp) {
                     if (resp.status == '200'){
