@@ -834,6 +834,9 @@ Controller.prototype.getSysOrgList = function(req,res){
             paramObj[param] = req.body[param];
         }
     }
+    if(req.session.userData){
+        paramObj.userData = req.session.userData;
+    }
     serverCommunication.OrgServer(paramObj, 'post', '/org/getSysOrgList', '', null, "application/json", function (data) {
         res.send(data);
     });
@@ -844,6 +847,9 @@ Controller.prototype.getAuthorizedInfos = function(req,res){
         if (param!='id'){
             paramObj[param] = req.body[param];
         }
+    }
+    if(req.session.userData){
+        paramObj.userData = req.session.userData;
     }
     serverCommunication.OrgServer(paramObj, 'post', '/org/getAuthorizedInfos', '', null, "application/json", function (data) {
         res.send(data);
@@ -856,6 +862,9 @@ Controller.prototype.authorizeToDept = function(req,res){
             paramObj[param] = req.body[param];
         }
     }
+    if(req.session.userData){
+        paramObj.userData = req.session.userData;
+    }
     serverCommunication.OrgServer(paramObj, 'post', '/org/authorizeToDept', '', null, "application/json", function (data) {
         res.send(data);
     });
@@ -866,6 +875,9 @@ Controller.prototype.authorizeToUser = function(req,res){
         if (param!='id'){
             paramObj[param] = req.body[param];
         }
+    }
+    if(req.session.userData){
+        paramObj.userData = req.session.userData;
     }
     serverCommunication.OrgServer(paramObj, 'post', '/org/authorizeToUser', '', null, "application/json", function (data) {
         res.send(data);
@@ -878,6 +890,9 @@ Controller.prototype.cancelAuthorizeOfDept = function(req,res){
             paramObj[param] = req.body[param];
         }
     }
+    if(req.session.userData){
+        paramObj.userData = req.session.userData;
+    }
     serverCommunication.OrgServer(paramObj, 'post', '/org/cancelAuthorizeOfDept', '', null, "application/json", function (data) {
         res.send(data);
     });
@@ -888,6 +903,9 @@ Controller.prototype.cancelAuthorizeOfUser = function(req,res){
         if (param!='id'){
             paramObj[param] = req.body[param];
         }
+    }
+    if(req.session.userData){
+        paramObj.userData = req.session.userData;
     }
     serverCommunication.OrgServer(paramObj, 'post', '/org/cancelAuthorizeOfUser', '', null, "application/json", function (data) {
         res.send(data);

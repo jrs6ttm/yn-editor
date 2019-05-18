@@ -189,6 +189,8 @@ exports.OCServer = function (postData, method, path, auth, reqType, resType, nex
 };
 exports.OrgServer = function (postData, method, path, auth, reqType, resType, next) {
     var reqBodyStr, headers, options, internalReq;
+    var userData = postData.userData;
+    delete postData.userData;
     //准备post的数据
     reqBodyStr = JSON.stringify(postData);
     headers = {
@@ -221,6 +223,10 @@ exports.OrgServer = function (postData, method, path, auth, reqType, resType, ne
 
         });
     });
+    if(userData){
+        internalReq.session.userData = userData;
+    }
+
     internalReq.on('error', function (e) {
         console.log('e');
         console.log(e);
