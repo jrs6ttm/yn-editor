@@ -836,6 +836,7 @@ var subCourses = {
                         subCourses.getDeptAuthorizedInfos();//刷新table
                     } else {
                         alert("授权失败：" + resp.err);
+                        obj.checked = false;
                     }
                 });
             }
@@ -852,6 +853,7 @@ var subCourses = {
                         subCourses.getDeptAuthorizedInfos();//刷新table
                     } else {
                         alert("解除授权失败：" + resp.err);
+                        obj.checked = true;
                     }
                 });
             }
@@ -989,6 +991,7 @@ var subCourses = {
                         subCourses.getUserAuthorizedInfos();//刷新table
                     } else {
                         alert("授权失败：" + resp.err);
+                        obj.checked = false;
                     }
                 });
             }
@@ -1005,6 +1008,7 @@ var subCourses = {
                         subCourses.getUserAuthorizedInfos();//刷新table
                     } else {
                         alert("解除授权失败：" + resp.err);
+                        obj.checked = true;
                     }
                 });
             }
