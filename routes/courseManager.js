@@ -287,6 +287,26 @@ var Controller = function (router) {
             }
         });
     });
+
+    /**************************课程授权接口**********************/
+    router.post('/getSysOrgList', checkSession2, function (req, res) {
+        controller.getSysOrgList(req, res);
+    });
+    router.post('/getAuthorizedInfos', checkSession2, function (req, res) {
+        controller.getAuthorizedInfos(req, res);
+    });
+    router.post('/authorizeToDept', checkSession2, function (req, res) {
+        controller.authorizeToDept(req, res);
+    });
+    router.post('/authorizeToUser', checkSession2, function (req, res) {
+        controller.authorizeToUser(req, res);
+    });
+    router.post('/cancelAuthorizeOfDept', checkSession2, function (req, res) {
+        controller.cancelAuthorizeOfDept(req, res);
+    });
+    router.post('/cancelAuthorizeOfUser', checkSession2, function (req, res) {
+        controller.cancelAuthorizeOfUser(req, res);
+    });
 };
 Controller.prototype.getCategoryTrees = function (next) {
     var path = '/getCourseType';
@@ -804,6 +824,73 @@ Controller.prototype.updateSubCourseInfo_v2 = function(req,res){
     }
     subCourseService.updateInfo_v2(courseId, paramObj, function(msg){
         res.send(msg);
+    });
+};
+/*****************************课程授权相关****************************/
+Controller.prototype.getSysOrgList = function(req,res){
+    var paramObj = {};
+    for (var param in req.body){
+        if (param!='id'){
+            paramObj[param] = req.body[param];
+        }
+    }
+    serverCommunication.OrgServer(paramObj, 'post', '/org/getSysOrgList', '', null, "application/json", function (data) {
+        res.send(data);
+    });
+};
+Controller.prototype.getAuthorizedInfos = function(req,res){
+    var paramObj = {};
+    for (var param in req.body){
+        if (param!='id'){
+            paramObj[param] = req.body[param];
+        }
+    }
+    serverCommunication.OrgServer(paramObj, 'post', '/org/getAuthorizedInfos', '', null, "application/json", function (data) {
+        res.send(data);
+    });
+};
+Controller.prototype.authorizeToDept = function(req,res){
+    var paramObj = {};
+    for (var param in req.body){
+        if (param!='id'){
+            paramObj[param] = req.body[param];
+        }
+    }
+    serverCommunication.OrgServer(paramObj, 'post', '/org/authorizeToDept', '', null, "application/json", function (data) {
+        res.send(data);
+    });
+};
+Controller.prototype.authorizeToUser = function(req,res){
+    var paramObj = {};
+    for (var param in req.body){
+        if (param!='id'){
+            paramObj[param] = req.body[param];
+        }
+    }
+    serverCommunication.OrgServer(paramObj, 'post', '/org/authorizeToUser', '', null, "application/json", function (data) {
+        res.send(data);
+    });
+};
+Controller.prototype.cancelAuthorizeOfDept = function(req,res){
+    var paramObj = {};
+    for (var param in req.body){
+        if (param!='id'){
+            paramObj[param] = req.body[param];
+        }
+    }
+    serverCommunication.OrgServer(paramObj, 'post', '/org/cancelAuthorizeOfDept', '', null, "application/json", function (data) {
+        res.send(data);
+    });
+};
+Controller.prototype.cancelAuthorizeOfUser = function(req,res){
+    var paramObj = {};
+    for (var param in req.body){
+        if (param!='id'){
+            paramObj[param] = req.body[param];
+        }
+    }
+    serverCommunication.OrgServer(paramObj, 'post', '/org/cancelAuthorizeOfUser', '', null, "application/json", function (data) {
+        res.send(data);
     });
 };
 module.exports = Controller;

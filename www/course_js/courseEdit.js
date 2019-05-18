@@ -747,7 +747,7 @@ var subCourses = {
                             '   </div>'+
                             '</div>';
             $(this).html(modalBox);
-            $.post(ORG_HOST + '/org/getSysOrgList', {}, function (data) {
+            $.post('/getSysOrgList', {}, function (data) {
                 if (data.status == '200'){
                     var orgOptions = '<option value="">---请选择---</option>';
                     data.orgList.each(function(orgInfo){
@@ -784,7 +784,7 @@ var subCourses = {
             return false;
         }
         var params = {orgID: orgID, deptName: deptName, courseId: Course.id, getType: 'dept'};
-        $.post(ORG_HOST + '/org/getAuthorizedInfos', params, function (resp) {
+        $.post('/getAuthorizedInfos', params, function (resp) {
             var authInfoTable = '';
             if (resp.status == '200'){
                 resp.datas.each(function(authInfo, index){
@@ -821,13 +821,13 @@ var subCourses = {
         if(isChecked){// 授权
             if(confirm('确定将课程 ' + Course.title + ' 的 ' + authLable + ' 权利授予' + authInfo.deptDes + '吗？')){
                 var authParam = {
-                    deptId: authInfo.deptID,
+                    deptID: authInfo.deptID,
                     right: authType,
                     courseId: Course.id,
                     courseName: Course.title,
                     courseType: '2'
                 };
-                $.post(ORG_HOST + '/org/authorizeToDept', authParam, function (resp) {
+                $.post('/authorizeToDept', authParam, function (resp) {
                     if (resp.status == '200'){
                         alert(resp.datas);
                         subCourses.getDeptAuthorizedInfos();//刷新table
@@ -839,11 +839,11 @@ var subCourses = {
         }else{//解除授权
             if(confirm('确定解除' + authInfo.deptDes + '对课程 ' + Course.title + ' 的 ' + authLable + ' 权利吗？')){
                 var cancelAuthParam = {
-                    deptId: authInfo.deptID,
+                    deptID: authInfo.deptID,
                     right: authType,
                     courseId: Course.id
                 };
-                $.post(ORG_HOST + '/org/cancelAuthorizeOfDept', cancelAuthParam, function (resp) {
+                $.post('/cancelAuthorizeOfDept', cancelAuthParam, function (resp) {
                     if (resp.status == '200'){
                         alert(resp.datas);
                         subCourses.getDeptAuthorizedInfos();//刷新table
@@ -877,7 +877,7 @@ var subCourses = {
                 '<table class="table table-bordered">' +
                 '  <caption>人员与授权信息列表</caption>' +
                 '  <thead>' +
-                '    <tr><th>序 号</th><th>组 织</th><th>上级机构</th><th>机 构</th><th>授 权</th></tr>' +
+                '    <tr><th>序 号</th><th>组 织</th><th>上级机构</th><th>机 构</th><th>人 员</th><th>授 权</th></tr>' +
                 '  </thead>' +
                 '  <tbody></tbody>' +
                 '</table>';
@@ -895,7 +895,7 @@ var subCourses = {
                 '   </div>'+
                 '</div>';
             $(this).html(modalBox);
-            $.post(ORG_HOST + '/org/getSysOrgList', {}, function (data) {
+            $.post('/getSysOrgList', {}, function (data) {
                 if (data.status == '200'){
                     var orgOptions = '<option value="">---请选择---</option>';
                     data.orgList.each(function(orgInfo){
@@ -932,7 +932,7 @@ var subCourses = {
             return false;
         }
         var params = {orgID: orgID, deptName: deptName, courseId: Course.id, getType: 'user'};
-        $.post(ORG_HOST + '/org/getAuthorizedInfos', params, function (resp) {
+        $.post('/getAuthorizedInfos', params, function (resp) {
             var authInfoTable = '';
             if (resp.status == '200'){
                 resp.datas.each(function(authInfo, index){
@@ -946,6 +946,7 @@ var subCourses = {
                         '   <td>' + authInfo.orgFullDes + '</td>' +
                         '   <td>' + authInfo.parentDeptDes + '</td>' +
                         '   <td>' + authInfo.deptDes + '</td>' +
+                        '   <td>' + authInfo.userName + '</td>' +
                         '   <td>' +
                         '       <label class="checkbox-inline">' +
                         '           <input type="checkbox"  value="1" ' + authType1 + ' onchange="subCourses.dealUserAuth(this, ' + authInfo + ')"> 组织课程' +
@@ -967,15 +968,16 @@ var subCourses = {
         var authType = $(obj).attr('value');
         var authLable = authType == '1' ? '组织' : '学习';
         if(isChecked){// 授权
-            if(confirm('确定将课程 ' + Course.title + ' 的 ' + authLable + ' 权利授予' + authInfo.deptDes + '吗？')){
+            if(confirm('确定将课程 ' + Course.title + ' 的 ' + authLable + ' 权利授予' + authInfo.userName + '吗？')){
                 var authParam = {
-                    deptId: authInfo.deptID,
+                    deptID: authInfo.deptID,
+                    userID: authInfo.userID,
                     right: authType,
                     courseId: Course.id,
                     courseName: Course.title,
                     courseType: '2'
                 };
-                $.post(ORG_HOST + '/org/authorizeToUser', authParam, function (resp) {
+                $.post('/authorizeToUser', authParam, function (resp) {
                     if (resp.status == '200'){
                         alert(resp.datas);
                         subCourses.getDeptAuthorizedInfos();//刷新table
@@ -985,13 +987,13 @@ var subCourses = {
                 });
             }
         }else{//解除授权
-            if(confirm('确定解除' + authInfo.deptDes + '对课程 ' + Course.title + ' 的 ' + authLable + ' 权利吗？')){
+            if(confirm('确定解除' + authInfo.userName + '对课程 ' + Course.title + ' 的 ' + authLable + ' 权利吗？')){
                 var cancelAuthParam = {
-                    deptId: authInfo.deptID,
+                    userID: authInfo.userID,
                     right: authType,
                     courseId: Course.id
                 };
-                $.post(ORG_HOST + '/org/cancelAuthorizeOfUser', cancelAuthParam, function (resp) {
+                $.post('/cancelAuthorizeOfUser', cancelAuthParam, function (resp) {
                     if (resp.status == '200'){
                         alert(resp.datas);
                         subCourses.getDeptAuthorizedInfos();//刷新table
