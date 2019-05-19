@@ -724,7 +724,7 @@ var subCourses = {
                             '           <input type="text" class="form-control" name="deptName" placeholder="非必填，请输入院系/班级">' +
                             '       </div>' +
                             '       <div class="col-sm-2">' +
-                            '           <button type="button" class="btn btn-success" onchange="subCourses.getDeptAuthorizedInfos()">查 找</button>' +
+                            '           <button type="button" class="btn btn-success" onclick="subCourses.getDeptAuthorizedInfos()">查 找</button>' +
                             '       </div>' +
                             '   </div>' +
                             '</form>' +
@@ -736,7 +736,7 @@ var subCourses = {
                             '  <tbody></tbody>' +
                             '</table>';
             var modalBox = '<div class="modal-dialog modal-lg"> ' +
-                            '   <div class="modal-content"> ' +
+                            '   <div class="modal-content" maxlength="500px" style="overflow-y: auto"> ' +
                             '       <div class="modal-header"> ' +
                             '           <button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
                             '               <span aria-hidden="true">&times;</span>' +
@@ -883,11 +883,11 @@ var subCourses = {
                 '   <div class="form-group">' +
                 '       <label for="firstname" class="col-sm-2 control-label">选择组织</label>' +
                 '           <div class="col-sm-3">' +
-                '               <select class="form-control" name="orgSelect" onchange="subCourses.changeOrgSelectionByUser()"></select>' +
+                '               <select class="form-control" name="orgSelect"></select>' +
                 '           </div>' +
                 '       <label for="lastname" class="col-sm-2 control-label">机构名称</label>' +
                 '       <div class="col-sm-3">' +
-                '           <input type="text" class="form-control" name="deptName" placeholder="非必填，请输入院系/班级">' +
+                '           <input type="text" class="form-control" name="deptName" placeholder="必填，请输入院系/班级">' +
                 '       </div>' +
                 '       <div class="col-sm-2">' +
                 '           <button type="button" class="btn btn-success" onclick="subCourses.getUserAuthorizedInfos()">查 找</button>' +
@@ -902,7 +902,7 @@ var subCourses = {
                 '  <tbody></tbody>' +
                 '</table>';
             var modalBox = '<div class="modal-dialog modal-lg"> ' +
-                '   <div class="modal-content"> ' +
+                '   <div class="modal-content" maxlength="500px" style="overflow-y: auto"> ' +
                 '       <div class="modal-header"> ' +
                 '           <button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
                 '               <span aria-hidden="true">&times;</span>' +
@@ -940,6 +940,7 @@ var subCourses = {
             });
         })
     },
+    //此功能暂去掉，因为组织下全部人员一次拉取不太合理
     changeOrgSelectionByUser: function(){
         var orgID = $('select[name="orgSelect"]', '#user-auth-modal').val();
         if(!orgID){
@@ -956,7 +957,10 @@ var subCourses = {
             alert("请选择一个组织！");
             return false;
         }
-
+        if(!deptName){
+            alert("请填写机构名称！");
+            return false;
+        }
         var subindex = $("#userAuthModalLabel", '#user-auth-modal').attr('data-subindex');
         var subCourse = subCourses.courseInfoList[parseInt(subindex) - 1];
         var params = {orgID: orgID, deptName: deptName, courseId: subCourse.id, getType: 'user'};
