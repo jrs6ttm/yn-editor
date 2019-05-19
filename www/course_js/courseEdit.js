@@ -717,7 +717,7 @@ var subCourses = {
                             '   <div class="form-group">' +
                             '       <label for="firstname" class="col-sm-2 control-label">选择组织</label>' +
                             '           <div class="col-sm-3">' +
-                            '               <select class="form-control" name="orgSelect" onclick="subCourses.changeOrgSelectionByDept()"></select>' +
+                            '               <select class="form-control" name="orgSelect" onchange="subCourses.changeOrgSelectionByDept()"></select>' +
                             '           </div>' +
                             '       <label for="lastname" class="col-sm-2 control-label">机构名称</label>' +
                             '       <div class="col-sm-3">' +
@@ -946,7 +946,7 @@ var subCourses = {
             $('tbody', '#user-auth-modal').html('<tr><td colspan="5">暂无数据！</td></tr>');
             return false;
         }
-        subCourses.getDeptAuthorizedInfos();
+        subCourses.getUserAuthorizedInfos();
     },
     getUserAuthorizedInfos: function(){
         $('tbody', '#user-auth-modal').html('');
