@@ -736,7 +736,7 @@ var subCourses = {
                             '  <tbody></tbody>' +
                             '</table>';
             var modalBox = '<div class="modal-dialog modal-lg"> ' +
-                            '   <div class="modal-content" maxlength="500px" style="overflow-y: auto"> ' +
+                            '   <div class="modal-content" style="max-height:550px; overflow-y: auto"> ' +
                             '       <div class="modal-header"> ' +
                             '           <button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
                             '               <span aria-hidden="true">&times;</span>' +
@@ -783,7 +783,6 @@ var subCourses = {
         subCourses.getDeptAuthorizedInfos();
     },
     getDeptAuthorizedInfos: function(){
-        $('tbody', '#dept-auth-modal').html('');
         var orgID = $('select[name="orgSelect"]', '#dept-auth-modal').val();
         var deptName = $('input[name="deptName"]', '#dept-auth-modal').val();
         if(!orgID){
@@ -791,6 +790,7 @@ var subCourses = {
             return false;
         }
 
+        $('tbody', '#dept-auth-modal').html('');
         var subindex = $("#deptAuthModalLabel", '#dept-auth-modal').attr('data-subindex');
         var subCourse = subCourses.courseInfoList[parseInt(subindex)-1];
         var params = {orgID: orgID, deptName: deptName, courseId: subCourse.id, getType: 'dept'};
@@ -902,7 +902,7 @@ var subCourses = {
                 '  <tbody></tbody>' +
                 '</table>';
             var modalBox = '<div class="modal-dialog modal-lg"> ' +
-                '   <div class="modal-content" maxlength="500px" style="overflow-y: auto"> ' +
+                '   <div class="modal-content" style="max-height: 550px; overflow-y: auto"> ' +
                 '       <div class="modal-header"> ' +
                 '           <button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
                 '               <span aria-hidden="true">&times;</span>' +
@@ -950,7 +950,6 @@ var subCourses = {
         subCourses.getUserAuthorizedInfos();
     },
     getUserAuthorizedInfos: function(){
-        $('tbody', '#user-auth-modal').html('');
         var orgID = $('select[name="orgSelect"]', '#user-auth-modal').val();
         var deptName = $('input[name="deptName"]', '#user-auth-modal').val();
         if(!orgID){
@@ -961,6 +960,7 @@ var subCourses = {
             alert("请填写机构名称！");
             return false;
         }
+        $('tbody', '#user-auth-modal').html('');
         var subindex = $("#userAuthModalLabel", '#user-auth-modal').attr('data-subindex');
         var subCourse = subCourses.courseInfoList[parseInt(subindex) - 1];
         var params = {orgID: orgID, deptName: deptName, courseId: subCourse.id, getType: 'user'};
