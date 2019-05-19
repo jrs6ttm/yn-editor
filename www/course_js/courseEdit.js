@@ -721,10 +721,10 @@ var subCourses = {
                             '           </div>' +
                             '       <label for="lastname" class="col-sm-2 control-label">机构名称</label>' +
                             '       <div class="col-sm-3">' +
-                            '           <input type="text" class="form-control" name="deptName" placeholder="必填，请输入院系/班级">' +
+                            '           <input type="text" class="form-control" name="deptName" placeholder="非必填，请输入院系/班级">' +
                             '       </div>' +
                             '       <div class="col-sm-2">' +
-                            '           <button type="button" class="btn btn-success" onclick="subCourses.getDeptAuthorizedInfos()">查 找</button>' +
+                            '           <button type="button" class="btn btn-success" onchange="subCourses.getDeptAuthorizedInfos()">查 找</button>' +
                             '       </div>' +
                             '   </div>' +
                             '</form>' +
@@ -883,7 +883,7 @@ var subCourses = {
                 '   <div class="form-group">' +
                 '       <label for="firstname" class="col-sm-2 control-label">选择组织</label>' +
                 '           <div class="col-sm-3">' +
-                '               <select class="form-control" name="orgSelect" onchange="subCourses.changeOrgSelectionByUser()></select>' +
+                '               <select class="form-control" name="orgSelect" onchange="subCourses.changeOrgSelectionByUser()"></select>' +
                 '           </div>' +
                 '       <label for="lastname" class="col-sm-2 control-label">机构名称</label>' +
                 '       <div class="col-sm-3">' +
