@@ -717,7 +717,7 @@ var subCourses = {
                             '   <div class="form-group">' +
                             '       <label for="firstname" class="col-sm-2 control-label">选择组织</label>' +
                             '           <div class="col-sm-3">' +
-                            '               <select class="form-control" name="orgSelect"></select>' +
+                            '               <select class="form-control" name="orgSelect" onclick="subCourses.changeOrgSelectionByDept()"></select>' +
                             '           </div>' +
                             '       <label for="lastname" class="col-sm-2 control-label">机构名称</label>' +
                             '       <div class="col-sm-3">' +
@@ -774,18 +774,26 @@ var subCourses = {
             });
         })
     },
+    changeOrgSelectionByDept: function(){
+        var orgID = $('select[name="orgSelect"]', '#dept-auth-modal').val();
+        if(!orgID){
+            $('tbody', '#dept-auth-modal').html('<tr><td colspan="5">暂无数据！</td></tr>');
+            return false;
+        }
+        subCourses.getDeptAuthorizedInfos();
+    },
     getDeptAuthorizedInfos: function(){
+        $('tbody', '#dept-auth-modal').html('');
         var orgID = $('select[name="orgSelect"]', '#dept-auth-modal').val();
         var deptName = $('input[name="deptName"]', '#dept-auth-modal').val();
         if(!orgID){
             alert("请选择一个组织！");
             return false;
         }
-        if(!deptName){
-            alert("请填写机构名称！");
-            return false;
-        }
-        var params = {orgID: orgID, deptName: deptName, courseId: Course.id, getType: 'dept'};
+
+        var subindex = $("#deptAuthModalLabel", '#dept-auth-modal').attr('data-subindex');
+        var subCourse = subCourses.courseInfoList[parseInt(subindex)-1];
+        var params = {orgID: orgID, deptName: deptName, courseId: subCourse.id, getType: 'dept'};
         $.post('/getAuthorizedInfos', params, function (resp) {
             var authInfoTable = '';
             if (resp.status == '200'){
@@ -823,8 +831,8 @@ var subCourses = {
         var isChecked = obj.checked;
         var authType = $(obj).attr('value');
         var authLable = authType == '1' ? '组织' : '学习';
-        var subindex = $("#deptAuthModalLabel", '#dept-auth-modal').attr('subindex');
-        var subCourse = subCourses.courseInfoList[parseInt(subindex)];
+        var subindex = $("#deptAuthModalLabel", '#dept-auth-modal').attr('data-subindex');
+        var subCourse = subCourses.courseInfoList[parseInt(subindex)-1];
         if(isChecked){// 授权
             //if(confirm('确定将课程 ' + Course.title + ' 的 ' + authLable + ' 权利授予' + deptDes + '吗？')){
             if(confirm('确定将课程 ' + subCourse.name + ' 的 ' + authLable + ' 权利授予' + deptDes + '吗？')){
@@ -864,9 +872,9 @@ var subCourses = {
             }
         }
     },
-    makeUserAuthModal: function () {//对机构的课程授权模态框内容
+    makeUserAuthModal: function () {//对人员的课程授权模态框内容
         $('#user-auth-modal').on('hidden.bs.modal', function (event) {
-            $(this).html();
+            $(this).html('');
         });
         $('#user-auth-modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
@@ -875,11 +883,11 @@ var subCourses = {
                 '   <div class="form-group">' +
                 '       <label for="firstname" class="col-sm-2 control-label">选择组织</label>' +
                 '           <div class="col-sm-3">' +
-                '               <select class="form-control" name="orgSelect"></select>' +
+                '               <select class="form-control" name="orgSelect" onchange="subCourses.changeOrgSelectionByUser()></select>' +
                 '           </div>' +
                 '       <label for="lastname" class="col-sm-2 control-label">机构名称</label>' +
                 '       <div class="col-sm-3">' +
-                '           <input type="text" class="form-control" name="deptName" placeholder="必填，请输入院系/班级">' +
+                '           <input type="text" class="form-control" name="deptName" placeholder="非必填，请输入院系/班级">' +
                 '       </div>' +
                 '       <div class="col-sm-2">' +
                 '           <button type="button" class="btn btn-success" onclick="subCourses.getUserAuthorizedInfos()">查 找</button>' +
@@ -932,18 +940,26 @@ var subCourses = {
             });
         })
     },
+    changeOrgSelectionByUser: function(){
+        var orgID = $('select[name="orgSelect"]', '#user-auth-modal').val();
+        if(!orgID){
+            $('tbody', '#user-auth-modal').html('<tr><td colspan="5">暂无数据！</td></tr>');
+            return false;
+        }
+        subCourses.getDeptAuthorizedInfos();
+    },
     getUserAuthorizedInfos: function(){
+        $('tbody', '#user-auth-modal').html('');
         var orgID = $('select[name="orgSelect"]', '#user-auth-modal').val();
         var deptName = $('input[name="deptName"]', '#user-auth-modal').val();
         if(!orgID){
             alert("请选择一个组织！");
             return false;
         }
-        if(!deptName){
-            alert("请填写机构名称！");
-            return false;
-        }
-        var params = {orgID: orgID, deptName: deptName, courseId: Course.id, getType: 'user'};
+
+        var subindex = $("#userAuthModalLabel", '#user-auth-modal').attr('data-subindex');
+        var subCourse = subCourses.courseInfoList[parseInt(subindex) - 1];
+        var params = {orgID: orgID, deptName: deptName, courseId: subCourse.id, getType: 'user'};
         $.post('/getAuthorizedInfos', params, function (resp) {
             var authInfoTable = '';
             if (resp.status == '200'){
@@ -982,8 +998,8 @@ var subCourses = {
         var isChecked = obj.checked;
         var authType = $(obj).attr('value');
         var authLable = authType == '1' ? '组织' : '学习';
-        var subindex = $("#userAuthModalLabel", '#user-auth-modal').attr('subindex');
-        var subCourse = subCourses.courseInfoList[parseInt(subindex)];
+        var subindex = $("#userAuthModalLabel", '#user-auth-modal').attr('data-subindex');
+        var subCourse = subCourses.courseInfoList[parseInt(subindex) - 1];
         if(isChecked){// 授权
             if(confirm('确定将课程 ' + subCourse.name + ' 的 ' + authLable + ' 权利授予' + userName + '吗？')){
                 var authParam = {
