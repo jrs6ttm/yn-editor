@@ -21,7 +21,7 @@ html(lang='zh_CN')
             var Course = {
                 id: '#{CourseId}',
                 title: '#{CourseName}',
-                briefDes: '#{BriefDes}',
+                briefDes: escape2Html('#{BriefDes}'),
                 detailDes: 0/*escape2Html("#{DetailDes}")*/,
                 icon: escape2Html('#{FileIcon}'),
                 categoryId: '#{CategoryId}',
