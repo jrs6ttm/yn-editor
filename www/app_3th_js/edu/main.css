@@ -9831,19 +9831,19 @@ textarea {
     border-bottom: 2px solid #ccc;
     vertical-align: top;
     display: inline-block;
-    height: 20px;
+    height: 40px;
     width: 20px;
     margin-left: -21px;
     float: left;
 }
 .lesson-list .item-content {
-    margin-left: 10px;
+    padding-left: 10px;
     border-bottom: 1px solid #ddd;
     overflow: hidden;
-    height: 30px;
-    line-height: 30px;
+    height: 40px;
+    line-height: 40px;
     float: left;
-    width: 99%;
+    width: 100%;
 }
 .lesson-list .item-actions {
     /*visibility: hidden;*/
