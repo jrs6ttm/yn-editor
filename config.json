@@ -1,5 +1,5 @@
 {
-  "runMode":"prod",
+  "runMode":"joint",
 
   "port": {
     "dev":"7502",
