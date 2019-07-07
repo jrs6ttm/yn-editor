@@ -29,7 +29,7 @@ var Controller = function (router) {
                     orgHost: router.externalConfig.orgHost[router.externalConfig.runMode],
                     CourseId: msg.data.id,
                     CourseName: msg.data.fileName,
-                    BriefDes: JSON.stringify(msg.data.briefDes), //课程导读文本处理,为了兼容旧数据，才在这里转换的，本应该在保存时就处理
+                    BriefDes: JSON.stringify({me: msg.data.briefDes}), //课程导读文本处理,为了兼容旧数据，才在这里转换的，本应该在保存时就处理
                     DetailDes: msg.data.fileDesc,
                     FileIcon: msg.data.fileIcon,
                     CategoryId: msg.data.categoryId,
