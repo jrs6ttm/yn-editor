@@ -516,8 +516,10 @@ var subCourses = {
             if (msg.success){
                 var statusDom = $('li#'+subCourseId+' span.unpublish-warning');
                 var publishDom = $('li#'+subCourseId+' span.publish-btn');
+                var authDropdownDom = $('li#'+subCourseId+' span.dropdown');
                 statusDom.text((statusDom.text())? '': '（未发布）');
                 publishDom.text((publishDom.text().length > 3)? '发布': '取消发布');
+                authDropdownDom.attr("display", (statusDom.text())? true : false);
             }
         })
     },
